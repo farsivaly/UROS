@@ -1,0 +1,93 @@
+{
+  "simulation_id": "COOLING_FAN_FAIL_001",
+  "inverter_id": "INV-003",
+  "fault_type": "Cooling Fan Failure",
+  "fibre_length_m": 12.4,
+  "model_version": "TIM-CNN-v2.1",
+  "frames": [
+    {
+      "progress": 0,
+      "timestamp": "2026-08-05T09:00:00",
+      "health": 97,
+      "severity": 0.05,
+      "status": "Healthy",
+      "T_surface": [44, 45, 44.5],
+      "T_DTS": [41, 41.5, 42, 42.2, 41.8, 41.4, 41, 40.8, 40.6, 40.5, 40.4, 40.3, 40.2, 40.1, 40, 40],
+      "hotspot_position": 2.1,
+      "hotspot_radius": 0.03,
+      "hotspot_component": "CoolingFan_01",
+      "ml_confidence": 0.2,
+      "remaining_useful_life_hours": 3000,
+      "maintenance_priority": "Low",
+      "recommended_action": "Continue nominal monitoring.",
+      "ac_power_kw": 245
+    },
+    {
+      "progress": 0.4,
+      "timestamp": "2026-08-05T09:20:00",
+      "health": 78,
+      "severity": 0.45,
+      "status": "Attention",
+      "T_surface": [52, 55, 53],
+      "T_DTS": [44, 46, 49, 52, 54, 53, 50, 48, 46, 45, 44, 43, 43, 42, 42, 41],
+      "hotspot_position": 1.2,
+      "hotspot_radius": 0.1,
+      "hotspot_component": "CoolingFan_01",
+      "ml_confidence": 0.78,
+      "remaining_useful_life_hours": 420,
+      "predicted_fault": "Cooling Fan Failure",
+      "maintenance_priority": "High",
+      "recommended_action": "Replace failed cooling fan; confirm redundant airflow.",
+      "alarms": [
+        {
+          "alarm_id": "FAN-H1",
+          "severity": "High",
+          "message": "CoolingFan_01 stopped — cabinet air rising",
+          "component_id": "CoolingFan_01",
+          "recommended_action": "Swap fan module."
+        }
+      ]
+    },
+    {
+      "progress": 1,
+      "timestamp": "2026-08-05T09:40:00",
+      "health": 48,
+      "severity": 0.88,
+      "status": "Critical",
+      "T_surface": [64, 70, 66],
+      "T_DTS": [50, 55, 60, 66, 70, 68, 62, 58, 54, 50, 48, 46, 45, 44, 43, 42],
+      "hotspot_position": 1.4,
+      "hotspot_radius": 0.2,
+      "hotspot_component": "HeatSink",
+      "ml_confidence": 0.95,
+      "remaining_useful_life_hours": 48,
+      "maintenance_priority": "Critical",
+      "recommended_action": "Reduce load; verify fans and intake filters immediately."
+    }
+  ],
+  "prediction_frames": [
+    {
+      "progress": 0,
+      "timestamp": "2026-08-05T09:40:00",
+      "health": 48,
+      "severity": 0.88,
+      "T_surface": [64, 70, 66],
+      "T_DTS": [50, 55, 60, 66, 70, 68, 62, 58, 54, 50, 48, 46, 45, 44, 43, 42],
+      "hotspot_radius": 0.2,
+      "ml_confidence": 0.95,
+      "remaining_useful_life_hours": 48
+    },
+    {
+      "progress": 1,
+      "timestamp": "2026-08-05T12:00:00",
+      "health": 30,
+      "severity": 1,
+      "T_surface": [72, 80, 74],
+      "T_DTS": [55, 62, 70, 78, 82, 78, 70, 64, 58, 54, 50, 48, 46, 45, 44, 43],
+      "hotspot_radius": 0.28,
+      "ml_confidence": 0.98,
+      "remaining_useful_life_hours": 6,
+      "predicted_fault": "Cooling Fan Failure"
+    }
+  ]
+}

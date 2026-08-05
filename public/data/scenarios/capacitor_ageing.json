@@ -1,0 +1,90 @@
+{
+  "simulation_id": "CAP_AGEING_001",
+  "inverter_id": "INV-004",
+  "fault_type": "Capacitor Ageing",
+  "fibre_length_m": 12.4,
+  "model_version": "TIM-CNN-v2.1",
+  "frames": [
+    {
+      "progress": 0,
+      "timestamp": "2026-08-05T08:00:00",
+      "health": 96,
+      "severity": 0.08,
+      "status": "Healthy",
+      "T_surface": [43, 44, 43.5],
+      "T_DTS": [40, 40.5, 41, 41.5, 42, 43, 44, 43.5, 42.5, 41.5, 41, 40.5, 40.2, 40, 39.8, 39.7],
+      "hotspot_position": 5.5,
+      "hotspot_radius": 0.04,
+      "hotspot_component": "Capacitor_01",
+      "ml_confidence": 0.25,
+      "remaining_useful_life_hours": 2800,
+      "maintenance_priority": "Low",
+      "recommended_action": "Continue nominal monitoring."
+    },
+    {
+      "progress": 0.5,
+      "timestamp": "2026-08-05T08:30:00",
+      "health": 74,
+      "severity": 0.5,
+      "status": "Attention",
+      "T_surface": [48, 50, 49],
+      "T_DTS": [42, 43, 45, 48, 52, 56, 58, 55, 50, 46, 44, 43, 42, 41, 41, 40],
+      "hotspot_position": 5.6,
+      "hotspot_radius": 0.11,
+      "hotspot_component": "Capacitor_01",
+      "ml_confidence": 0.81,
+      "remaining_useful_life_hours": 620,
+      "predicted_fault": "Capacitor Ageing",
+      "maintenance_priority": "High",
+      "recommended_action": "Schedule DC-link capacitor health check and ESR measurement.",
+      "alarms": [
+        {
+          "alarm_id": "CAP-W1",
+          "severity": "Warning",
+          "message": "Capacitor_01 temperature trend indicates ageing",
+          "component_id": "Capacitor_01",
+          "recommended_action": "Plan ESR test at next outage."
+        }
+      ]
+    },
+    {
+      "progress": 1,
+      "timestamp": "2026-08-05T09:00:00",
+      "health": 58,
+      "severity": 0.78,
+      "status": "Attention",
+      "T_surface": [52, 54, 53],
+      "T_DTS": [44, 46, 50, 55, 60, 64, 66, 62, 55, 50, 46, 44, 43, 42, 41, 41],
+      "hotspot_position": 5.7,
+      "hotspot_radius": 0.16,
+      "hotspot_component": "Capacitor_01",
+      "ml_confidence": 0.9,
+      "remaining_useful_life_hours": 210,
+      "maintenance_priority": "High",
+      "recommended_action": "Replace DC-link capacitor bank within maintenance cycle."
+    }
+  ],
+  "prediction_frames": [
+    {
+      "progress": 0,
+      "timestamp": "2026-08-05T09:00:00",
+      "health": 58,
+      "severity": 0.78,
+      "T_DTS": [44, 46, 50, 55, 60, 64, 66, 62, 55, 50, 46, 44, 43, 42, 41, 41],
+      "hotspot_radius": 0.16,
+      "ml_confidence": 0.9,
+      "remaining_useful_life_hours": 210
+    },
+    {
+      "progress": 1,
+      "timestamp": "2026-08-05T15:00:00",
+      "health": 45,
+      "severity": 0.92,
+      "T_DTS": [46, 50, 56, 62, 68, 72, 74, 68, 58, 52, 48, 45, 44, 43, 42, 41],
+      "hotspot_radius": 0.22,
+      "ml_confidence": 0.95,
+      "remaining_useful_life_hours": 72,
+      "predicted_fault": "Capacitor Ageing"
+    }
+  ]
+}

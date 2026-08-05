@@ -1,0 +1,74 @@
+{
+  "simulation_id": "SCENARIO_A_HEALTHY",
+  "inverter_id": "INV-002",
+  "fault_type": "Healthy",
+  "fibre_length_m": 12.4,
+  "model_version": "TIM-CNN-v2.1",
+  "frames": [
+    {
+      "progress": 0,
+      "timestamp": "2026-08-05T10:00:00",
+      "health": 100,
+      "severity": 0,
+      "status": "Healthy",
+      "T_surface": [42.1, 42.4, 42.8],
+      "T_fibre": [40.2, 40.4, 40.8, 41.0, 40.6, 40.3, 40.1, 39.9, 39.8, 39.7, 39.6, 39.5, 39.5, 39.4, 39.4, 39.3],
+      "T_DTS": [40.4, 40.6, 41.0, 41.2, 40.8, 40.5, 40.2, 40.0, 39.9, 39.8, 39.7, 39.6, 39.6, 39.5, 39.5, 39.4],
+      "hotspot_position": 3.75,
+      "hotspot_radius": 0.02,
+      "hotspot_component": "IGBT_02",
+      "ml_confidence": 0.08,
+      "remaining_useful_life_hours": 5200,
+      "maintenance_priority": "Low",
+      "recommended_action": "Continue nominal monitoring.",
+      "thermal_resistance": 0.09,
+      "ac_power_kw": 248,
+      "dc_voltage": 1048,
+      "ac_voltage": 800,
+      "current_a": 179
+    },
+    {
+      "progress": 1,
+      "timestamp": "2026-08-05T12:00:00",
+      "health": 98,
+      "severity": 0.05,
+      "status": "Healthy",
+      "T_surface": [43.0, 43.5, 43.2],
+      "T_fibre": [41.0, 41.2, 41.5, 41.4, 41.1, 40.8, 40.5, 40.3, 40.2, 40.1, 40.0, 39.9, 39.9, 39.8, 39.8, 39.7],
+      "T_DTS": [41.1, 41.3, 41.6, 41.5, 41.2, 40.9, 40.6, 40.4, 40.3, 40.2, 40.1, 40.0, 40.0, 39.9, 39.9, 39.8],
+      "hotspot_position": 3.76,
+      "hotspot_radius": 0.025,
+      "ml_confidence": 0.1,
+      "remaining_useful_life_hours": 5100,
+      "maintenance_priority": "Low",
+      "recommended_action": "Continue nominal monitoring.",
+      "thermal_resistance": 0.09,
+      "ac_power_kw": 246
+    }
+  ],
+  "prediction_frames": [
+    {
+      "progress": 0,
+      "timestamp": "2026-08-05T12:00:00",
+      "health": 98,
+      "severity": 0.05,
+      "T_surface": [43.0, 43.5, 43.2],
+      "T_DTS": [41.1, 41.3, 41.6, 41.5, 41.2, 40.9, 40.6, 40.4, 40.3, 40.2, 40.1, 40.0, 40.0, 39.9, 39.9, 39.8],
+      "hotspot_radius": 0.025,
+      "ml_confidence": 0.1,
+      "remaining_useful_life_hours": 5100
+    },
+    {
+      "progress": 1,
+      "timestamp": "2026-08-05T18:00:00",
+      "health": 96,
+      "severity": 0.08,
+      "T_surface": [44.0, 44.8, 44.2],
+      "T_DTS": [42.0, 42.4, 42.8, 42.5, 42.0, 41.5, 41.2, 41.0, 40.8, 40.6, 40.5, 40.4, 40.3, 40.2, 40.1, 40.0],
+      "hotspot_radius": 0.03,
+      "ml_confidence": 0.15,
+      "remaining_useful_life_hours": 4800,
+      "predicted_fault": "Healthy"
+    }
+  ]
+}

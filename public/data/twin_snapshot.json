@@ -1,0 +1,134 @@
+{
+  "timestamp": "2026-08-05T12:30:00",
+  "source": "placeholder-json",
+  "fibre_length_m": 12.4,
+  "inverters": [
+    {
+      "id": "INV-001",
+      "status": "Attention",
+      "health": 82,
+      "temperature": 58.4,
+      "fault": "Thermal Interface Degradation",
+      "severity": "Warning",
+      "recommended_action": "Inspect TIM / heatsink contact pressure at next maintenance window.",
+      "components": {
+        "IGBT_01": {
+          "temperature": 54.2,
+          "health": 91,
+          "status": "Healthy"
+        },
+        "IGBT_02": {
+          "temperature": 72.8,
+          "health": 74,
+          "status": "Attention",
+          "hotspot_radius": 0.1,
+          "hotspot_position": 0.4
+        },
+        "IGBT_03": {
+          "temperature": 56.1,
+          "health": 90,
+          "status": "Healthy"
+        },
+        "HeatSink": {
+          "temperature": 61.5,
+          "thermal_resistance": 0.14,
+          "health": 80,
+          "status": "Attention"
+        },
+        "RamanFibre": {
+          "max_temperature": 73.1,
+          "average_temperature": 48.5,
+          "hotspot_position": 3.82,
+          "hotspot_radius": 0.12,
+          "temperature_profile": [
+            36, 38, 40, 42, 45, 49, 55, 63, 71, 73, 68, 60, 52, 47, 44, 42,
+            41, 40, 39, 38, 38, 37, 37, 36, 36, 36, 35, 35, 35, 35, 34, 34
+          ]
+        },
+        "Capacitor_01": {
+          "temperature": 49.2,
+          "health": 88,
+          "status": "Healthy"
+        },
+        "CoolingFan_01": {
+          "temperature": 42.0,
+          "health": 92,
+          "status": "Running"
+        }
+      }
+    },
+    {
+      "id": "INV-002",
+      "status": "Healthy",
+      "health": 96,
+      "temperature": 44.8,
+      "fault": "None",
+      "components": {
+        "IGBT_01": { "temperature": 52.1, "health": 96, "status": "Healthy" },
+        "IGBT_02": { "temperature": 53.4, "health": 95, "status": "Healthy" },
+        "IGBT_03": { "temperature": 51.8, "health": 97, "status": "Healthy" },
+        "HeatSink": {
+          "temperature": 48.2,
+          "thermal_resistance": 0.1,
+          "health": 97,
+          "status": "Healthy"
+        },
+        "RamanFibre": {
+          "max_temperature": 53.2,
+          "average_temperature": 41.5,
+          "hotspot_position": 2.1,
+          "temperature_profile": [
+            35, 36, 37, 39, 42, 46, 50, 53, 51, 47, 44, 42, 41, 40, 39, 39,
+            38, 38, 37, 37, 37, 36, 36, 36, 36, 35, 35, 35, 35, 35, 34, 34
+          ]
+        }
+      }
+    },
+    {
+      "id": "INV-003",
+      "status": "Healthy",
+      "health": 94,
+      "temperature": 46.2,
+      "fault": "None",
+      "components": {
+        "IGBT_01": { "temperature": 54.0, "health": 94, "status": "Healthy" },
+        "IGBT_02": { "temperature": 55.2, "health": 93, "status": "Healthy" },
+        "IGBT_03": { "temperature": 53.5, "health": 95, "status": "Healthy" },
+        "HeatSink": {
+          "temperature": 49.0,
+          "thermal_resistance": 0.1,
+          "health": 95,
+          "status": "Healthy"
+        },
+        "RamanFibre": {
+          "max_temperature": 55.0,
+          "average_temperature": 42.0,
+          "hotspot_position": 4.5
+        }
+      }
+    },
+    {
+      "id": "INV-004",
+      "status": "Healthy",
+      "health": 97,
+      "temperature": 41.6,
+      "fault": "None",
+      "components": {
+        "IGBT_01": { "temperature": 50.2, "health": 97, "status": "Healthy" },
+        "IGBT_02": { "temperature": 51.0, "health": 97, "status": "Healthy" },
+        "IGBT_03": { "temperature": 49.8, "health": 98, "status": "Healthy" },
+        "HeatSink": {
+          "temperature": 45.5,
+          "thermal_resistance": 0.09,
+          "health": 98,
+          "status": "Healthy"
+        },
+        "RamanFibre": {
+          "max_temperature": 51.0,
+          "average_temperature": 39.8,
+          "hotspot_position": 1.5
+        }
+      }
+    }
+  ]
+}

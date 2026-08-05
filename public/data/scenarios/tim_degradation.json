@@ -1,0 +1,151 @@
+{
+  "simulation_id": "TIM_DEGRADATION_001",
+  "inverter_id": "INV-001",
+  "fault_type": "Thermal Interface Degradation",
+  "fibre_length_m": 12.4,
+  "model_version": "TIM-CNN-v2.1",
+  "frames": [
+    {
+      "progress": 0,
+      "timestamp": "2026-08-05T10:00:00",
+      "health": 100,
+      "severity": 0,
+      "status": "Healthy",
+      "T_surface": [42.1, 42.4, 42.8],
+      "T_DTS": [40.4, 40.6, 41.0, 41.2, 40.8, 40.5, 40.2, 40.0, 39.9, 39.8, 39.7, 39.6, 39.6, 39.5, 39.5, 39.4],
+      "hotspot_position": 3.75,
+      "hotspot_radius": 0.02,
+      "hotspot_component": "IGBT_02",
+      "ml_confidence": 0.12,
+      "remaining_useful_life_hours": 4500,
+      "maintenance_priority": "Low",
+      "recommended_action": "Continue nominal monitoring.",
+      "thermal_resistance": 0.1,
+      "ac_power_kw": 248
+    },
+    {
+      "progress": 0.25,
+      "timestamp": "2026-08-05T10:15:00",
+      "health": 88,
+      "severity": 0.28,
+      "status": "Attention",
+      "T_surface": [46.0, 52.0, 47.5],
+      "T_DTS": [41, 42, 44, 48, 52, 55, 52, 48, 45, 43, 42, 41, 41, 40, 40, 40],
+      "hotspot_position": 3.78,
+      "hotspot_radius": 0.06,
+      "hotspot_component": "IGBT_02",
+      "ml_confidence": 0.55,
+      "remaining_useful_life_hours": 2100,
+      "maintenance_priority": "Medium",
+      "recommended_action": "Monitor TIM temperature trend; schedule visual inspection.",
+      "thermal_resistance": 0.12,
+      "alarms": [
+        {
+          "alarm_id": "TIM-W1",
+          "severity": "Warning",
+          "message": "Early thermal interface degradation detected",
+          "component_id": "IGBT_02",
+          "recommended_action": "Increase sampling rate on DTS hotspot."
+        }
+      ]
+    },
+    {
+      "progress": 0.5,
+      "timestamp": "2026-08-05T10:30:00",
+      "health": 69,
+      "severity": 0.5,
+      "status": "Attention",
+      "T_surface": [53.0, 61.4, 72.2],
+      "T_DTS": [44.8, 48, 54, 60, 67.5, 66, 58, 52, 48, 46, 44, 43, 42, 41, 41, 40],
+      "hotspot_position": 3.82,
+      "hotspot_radius": 0.12,
+      "hotspot_component": "IGBT_02",
+      "ml_confidence": 0.87,
+      "remaining_useful_life_hours": 740,
+      "predicted_fault": "Thermal Interface Degradation",
+      "maintenance_priority": "High",
+      "recommended_action": "Inspect TIM / heatsink contact pressure at next maintenance window.",
+      "thermal_resistance": 0.16,
+      "alarms": [
+        {
+          "alarm_id": "TIM-H1",
+          "severity": "High",
+          "message": "IGBT_02 hotspot elevated — TIM degradation likely",
+          "component_id": "IGBT_02",
+          "recommended_action": "Plan inverter derate if temperature continues rising."
+        }
+      ]
+    },
+    {
+      "progress": 0.75,
+      "timestamp": "2026-08-05T10:45:00",
+      "health": 52,
+      "severity": 0.72,
+      "status": "Critical",
+      "T_surface": [58, 74, 68],
+      "T_DTS": [48, 55, 63, 72, 78, 74, 65, 56, 50, 47, 45, 44, 43, 42, 42, 41],
+      "hotspot_position": 3.85,
+      "hotspot_radius": 0.18,
+      "hotspot_component": "IGBT_02",
+      "ml_confidence": 0.94,
+      "remaining_useful_life_hours": 180,
+      "maintenance_priority": "High",
+      "recommended_action": "Derate unit; inspect thermal interface within 48 hours.",
+      "thermal_resistance": 0.22,
+      "alarms": [
+        {
+          "alarm_id": "TIM-C1",
+          "severity": "Critical",
+          "message": "Severe TIM degradation — trip risk",
+          "component_id": "IGBT_02",
+          "recommended_action": "Isolate for maintenance if load allows."
+        }
+      ]
+    },
+    {
+      "progress": 1,
+      "timestamp": "2026-08-05T11:00:00",
+      "health": 38,
+      "severity": 0.95,
+      "status": "Critical",
+      "T_surface": [62, 86, 74],
+      "T_DTS": [52, 60, 70, 82, 88, 84, 72, 60, 52, 48, 46, 44, 43, 42, 42, 41],
+      "hotspot_position": 3.88,
+      "hotspot_radius": 0.24,
+      "hotspot_component": "IGBT_02",
+      "ml_confidence": 0.97,
+      "remaining_useful_life_hours": 36,
+      "maintenance_priority": "Critical",
+      "recommended_action": "Immediate inspection of thermal interface; consider offline.",
+      "thermal_resistance": 0.28
+    }
+  ],
+  "prediction_frames": [
+    {
+      "progress": 0,
+      "timestamp": "2026-08-05T11:00:00",
+      "health": 38,
+      "severity": 0.95,
+      "T_surface": [62, 86, 74],
+      "T_DTS": [52, 60, 70, 82, 88, 84, 72, 60, 52, 48, 46, 44, 43, 42, 42, 41],
+      "hotspot_radius": 0.24,
+      "ml_confidence": 0.97,
+      "remaining_useful_life_hours": 36,
+      "predicted_fault": "Thermal Interface Degradation"
+    },
+    {
+      "progress": 1,
+      "timestamp": "2026-08-05T17:00:00",
+      "health": 22,
+      "severity": 1,
+      "T_surface": [68, 95, 80],
+      "T_DTS": [55, 65, 78, 90, 98, 92, 78, 65, 55, 50, 48, 46, 45, 44, 43, 42],
+      "hotspot_radius": 0.32,
+      "ml_confidence": 0.99,
+      "remaining_useful_life_hours": 8,
+      "predicted_fault": "Thermal Interface Degradation",
+      "maintenance_priority": "Critical",
+      "recommended_action": "Predicted trip — schedule emergency maintenance."
+    }
+  ]
+}

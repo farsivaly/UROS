@@ -1,0 +1,803 @@
+You are an expert Blender Python developer, Blender UI/UX designer, engineering educator, and Blender MCP assistant.
+
+Refactor the existing SCADA Digital Twin interface into two user-facing modes:
+
+1. LEARNING MODE
+2. EXPERT MODE
+
+Do not remove existing functionality.
+
+Do not rebuild the add-on from scratch.
+
+Preserve:
+
+- all current Blender operators
+- live and replay data systems
+- fault injection
+- Raman DTS visualisation
+- prediction mode
+- inspection tools
+- object metadata
+- alarms
+- graphs
+- camera controls
+- exploded view
+- X-ray mode
+- existing asset hierarchy and naming
+
+The goal is to present the same digital twin differently depending on the user.
+
+==================================================
+1. GLOBAL EXPERIENCE MODE
+==================================================
+
+Add a prominent selector near the top of the sidebar:
+
+Experience Mode:
+
+- Learning
+- Expert
+
+Use an EnumProperty.
+
+The selected experience mode should change:
+
+- visible sections
+- terminology
+- amount of detail
+- guidance text
+- default camera behaviour
+- graph complexity
+- available controls
+- warnings and explanations
+
+Changing experience mode must not alter the underlying digital twin state.
+
+For example, if INV-002 is selected with a 68% health state, switching modes should preserve that selection and state.
+
+==================================================
+2. LEARNING MODE
+==================================================
+
+Learning Mode is for undergraduate students or visitors who may never have seen:
+
+- a string inverter
+- an IGBT
+- a heat sink
+- Raman scattering
+- distributed temperature sensing
+- thermal interface degradation
+- SCADA
+- predictive maintenance
+
+The interface should teach through guided interaction.
+
+Use simple language first, followed by the engineering term where useful.
+
+Examples:
+
+Power switch module (IGBT)
+
+Cooling metal block (Heat Sink)
+
+Temperature-sensing fibre (Raman DTS Fibre)
+
+Avoid presenting unexplained abbreviations.
+
+--------------------------------------------------
+LEARNING MODE TOP-LEVEL STRUCTURE
+--------------------------------------------------
+
+Use only four main sections:
+
+1. START HERE
+2. EXPLORE THE INVERTER
+3. RUN A SCENARIO
+4. WHAT THE DATA MEANS
+
+Keep advanced diagnostics and system controls hidden.
+
+--------------------------------------------------
+A. START HERE
+--------------------------------------------------
+
+This section should be expanded by default.
+
+Show:
+
+Title:
+String Inverter Digital Twin
+
+Subtitle:
+Learn how temperature, faults and fibre sensing are monitored inside a solar inverter.
+
+Add a short explanation:
+
+A string inverter converts DC electricity from solar panels into AC electricity for the grid. This digital twin lets you inspect its components and see how faults affect temperature and health.
+
+Add large workflow buttons:
+
+1. View Solar Farm
+2. Inspect an Inverter
+3. Open the Cabinet
+4. Select a Component
+5. Run a Fault Scenario
+
+Show a simple progress indicator:
+
+Step 1 of 5
+
+Add:
+
+Restart Learning Tour
+
+--------------------------------------------------
+B. EXPLORE THE INVERTER
+--------------------------------------------------
+
+When an inverter is selected, show:
+
+Selected Inverter:
+INV-001
+
+Overall Health:
+96% — Healthy
+
+Current Temperature:
+44.8 °C
+
+Use simple status language.
+
+Add quick component buttons:
+
+- IGBT
+- Heat Sink
+- Capacitor
+- Cooling Fan
+- Busbar
+- Raman Fibre
+
+When a component is selected, show:
+
+What is it?
+
+What does it do?
+
+Why does temperature matter?
+
+What happens if it fails?
+
+Example for IGBT:
+
+What is it?
+An IGBT is a high-power electronic switch.
+
+What does it do?
+It rapidly switches electrical current to help convert DC power into AC power.
+
+Why does temperature matter?
+Excess heat can reduce efficiency and shorten the component's life.
+
+Add an optional expandable block:
+
+Engineering Details
+
+This can show:
+
+- component ID
+- exact temperature
+- thermal resistance
+- voltage
+- health
+- status
+
+Keep this collapsed by default.
+
+--------------------------------------------------
+C. RUN A SCENARIO
+--------------------------------------------------
+
+Use scenario cards or a simple dropdown.
+
+Scenarios:
+
+- Healthy Operation
+- Thermal Interface Degradation
+- Cooling Fan Failure
+- Capacitor Ageing
+- Busbar Hotspot
+
+For each scenario show:
+
+What is changing?
+
+What should you watch?
+
+Expected result
+
+Example:
+
+Thermal Interface Degradation
+
+What is changing?
+Heat is no longer transferred efficiently from the IGBT to the heat sink.
+
+What should you watch?
+The IGBT temperature, hotspot size, Raman fibre colour and health percentage.
+
+Add controls:
+
+- Start Scenario
+- Pause
+- Reset
+- Progress Slider
+
+Rename the progression slider in Learning Mode:
+
+Fault Development
+
+Labels:
+
+0% — Healthy
+25% — Early Warning
+50% — Developing Fault
+75% — Serious
+100% — Severe
+
+As the slider moves, show a dynamic explanation:
+
+Example at 50%:
+
+The thermal interface is becoming less effective. Heat is building up near the IGBT, so the hotspot is growing and the fibre is detecting a higher local temperature.
+
+--------------------------------------------------
+D. WHAT THE DATA MEANS
+--------------------------------------------------
+
+Use internal tabs:
+
+- Temperature
+- Raman Sensing
+- Health
+- Prediction
+
+TEMPERATURE TAB
+
+Explain:
+
+Blue:
+Cool
+
+Green:
+Normal
+
+Yellow:
+Warmer than normal
+
+Orange:
+High temperature
+
+Red:
+Critical temperature
+
+Show the current minimum and maximum values.
+
+RAMAN SENSING TAB
+
+Explain in simple steps:
+
+1. A laser pulse travels through the fibre.
+2. A small amount of light scatters back.
+3. The Stokes and anti-Stokes signals are measured.
+4. Their relationship is used to estimate temperature along the fibre.
+
+Show buttons:
+
+- Play Raman Demonstration
+- Pause
+- Reset
+
+Add labels to the animation:
+
+Outgoing pulse
+
+Stokes backscatter
+
+Anti-Stokes backscatter
+
+Hotspot
+
+HEALTH TAB
+
+Explain:
+
+Health is a simplified condition score supplied by the external analytics system.
+
+Show:
+
+90–100%:
+Healthy
+
+75–89%:
+Monitor
+
+55–74%:
+Maintenance recommended
+
+Below 55%:
+Critical
+
+PREDICTION TAB
+
+Explain:
+
+Prediction mode uses externally generated forecast data to show how the fault may develop in the future.
+
+Clearly label all forecast information:
+
+Predicted, not measured
+
+--------------------------------------------------
+LEARNING MODE GUIDED HIGHLIGHTS
+--------------------------------------------------
+
+Add optional viewport guidance.
+
+Examples:
+
+- highlight the inverter to click
+- highlight the cabinet door
+- highlight the selected component
+- point to the hotspot
+- point to the Raman fibre
+- show a temporary arrow or outline
+
+Use a button:
+
+Show Me
+
+Examples:
+
+Show Me the IGBT
+
+Show Me the Heat Sink
+
+Show Me the Fibre
+
+Do not add excessive floating text to the viewport.
+
+--------------------------------------------------
+LEARNING MODE QUIZ OPTION
+--------------------------------------------------
+
+Add an optional small quiz feature.
+
+Button:
+
+Check My Understanding
+
+Use simple multiple-choice questions based on the current scenario.
+
+Examples:
+
+Which component removes heat from the IGBT?
+
+- Heat sink
+- Capacitor
+- Busbar
+- Control PCB
+
+What does a red fibre section indicate?
+
+- Lower voltage
+- Higher local temperature
+- Faster fan speed
+- Open cabinet door
+
+Keep this optional and separate from the main workflow.
+
+Do not require quiz completion to use the digital twin.
+
+==================================================
+3. EXPERT MODE
+==================================================
+
+Expert Mode is for:
+
+- professors
+- researchers
+- engineers
+- external examiners
+- technical demonstrations
+
+Use concise engineering terminology.
+
+Do not show introductory explanations unless requested.
+
+--------------------------------------------------
+EXPERT MODE TOP-LEVEL STRUCTURE
+--------------------------------------------------
+
+Use five main sections:
+
+1. OVERVIEW
+2. ASSET INSPECTION
+3. ANALYSIS
+4. CONTROLS
+5. SYSTEM
+
+This should follow the previously defined compact SCADA structure.
+
+--------------------------------------------------
+A. OVERVIEW
+--------------------------------------------------
+
+Show:
+
+- operating mode
+- connection status
+- fleet condition
+- selected inverter
+- health
+- severity
+- maximum temperature
+- active alarms
+- last update
+
+Add compact actions:
+
+- Focus
+- Inspect
+- Acknowledge
+- Reset
+
+--------------------------------------------------
+B. ASSET INSPECTION
+--------------------------------------------------
+
+Show:
+
+- asset ID
+- component ID
+- parent inverter
+- temperature
+- health
+- status
+- thermal resistance
+- electrical values
+- fault state
+
+Include:
+
+- camera navigation
+- open/close door
+- exploded view
+- X-ray
+- component isolation
+- quick focus
+
+--------------------------------------------------
+C. ANALYSIS
+--------------------------------------------------
+
+Use tabs:
+
+- Thermal
+- Raman DTS
+- Prediction
+- Signals
+
+THERMAL
+
+- T_surface
+- T_fibre
+- T_DTS
+- hotspot position
+- hotspot radius
+- thermal resistance
+- temperature range controls
+
+RAMAN DTS
+
+- distributed temperature profile
+- fibre distance
+- maximum and average temperature
+- hotspot distance
+- Raman ratio
+- Stokes
+- anti-Stokes
+
+PREDICTION
+
+- predicted fault
+- confidence
+- RUL
+- maintenance priority
+- forecast horizon
+- recommended action
+
+SIGNALS
+
+- graph selection
+- axis ranges
+- profile interpolation
+- measured/simulated/predicted source labels
+
+--------------------------------------------------
+D. CONTROLS
+--------------------------------------------------
+
+Use mode-dependent controls.
+
+Modes:
+
+- Inspection
+- Live
+- Replay
+- Fault Injection
+- Prediction
+- Maintenance
+- Raman Demo
+
+Show only controls relevant to the active mode.
+
+--------------------------------------------------
+E. SYSTEM
+--------------------------------------------------
+
+Collapsed by default.
+
+Show:
+
+- data source
+- communication adapter
+- packet counts
+- rejected packets
+- update rate
+- current JSON file
+- diagnostics
+- temperature mapping mode
+- logging
+- add-on version
+
+==================================================
+4. SHARED DATA, DIFFERENT PRESENTATION
+==================================================
+
+Both experience modes must use the same underlying data.
+
+For example:
+
+Underlying property:
+
+fault_type = "Thermal Interface Degradation"
+
+Learning Mode displays:
+
+Heat is not transferring efficiently from the IGBT to the heat sink.
+
+Expert Mode displays:
+
+Fault: Thermal Interface Degradation
+R_th: 0.18 K/W
+Severity: 0.65
+
+Do not duplicate the data pipeline.
+
+Create presentation helper functions that translate the same state into different UI detail levels.
+
+Suggested helpers:
+
+draw_learning_header()
+draw_learning_component_explanation()
+draw_learning_scenario()
+draw_learning_data_explanation()
+draw_learning_guidance()
+
+draw_expert_overview()
+draw_expert_asset_inspection()
+draw_expert_analysis()
+draw_expert_controls()
+draw_expert_system()
+
+==================================================
+5. TERMINOLOGY SYSTEM
+==================================================
+
+Create a reusable glossary or terminology dictionary.
+
+Example:
+
+{
+    "IGBT": {
+        "simple_name": "Power switch module",
+        "technical_name": "Insulated-Gate Bipolar Transistor",
+        "short_explanation": "A high-power electronic switch used during DC-to-AC conversion."
+    },
+    "HeatSink": {
+        "simple_name": "Cooling metal block",
+        "technical_name": "Heat Sink",
+        "short_explanation": "Transfers heat away from power electronics."
+    },
+    "RamanFibre": {
+        "simple_name": "Temperature-sensing fibre",
+        "technical_name": "Raman Distributed Temperature Sensing Fibre",
+        "short_explanation": "Measures temperature at many points along the fibre."
+    }
+}
+
+Use this glossary in Learning Mode.
+
+Do not hard-code long explanations directly into every panel draw function.
+
+==================================================
+6. MODE SWITCHING
+==================================================
+
+When switching from Learning to Expert:
+
+- keep the selected inverter
+- keep the selected component
+- keep the current scenario
+- keep the current timeline position
+- keep the hotspot state
+- keep the camera view where possible
+- keep the current data connection
+
+When switching from Expert to Learning:
+
+- hide advanced controls
+- show simple terminology
+- show the current learning step
+- do not reset the simulation automatically
+
+Add an optional confirmation only when switching modes would stop an active operation.
+
+For example:
+
+A live recording is active. Stop recording before entering Learning Mode?
+
+Do not ask for confirmation for normal mode switching.
+
+==================================================
+7. DEFAULT SETTINGS
+==================================================
+
+Default first-time experience:
+
+Learning Mode
+
+Default for saved research/demo file:
+
+Allow the Blender file to store the preferred experience mode.
+
+Learning Mode defaults:
+
+- Start Here expanded
+- simple labels enabled
+- advanced details collapsed
+- guidance enabled
+- quiz disabled
+- fixed safe demo data if no source is connected
+
+Expert Mode defaults:
+
+- Overview expanded
+- Asset Inspection expanded
+- Analysis collapsed
+- Controls collapsed
+- System collapsed
+- guidance disabled
+- technical units visible
+- live source controls available
+
+==================================================
+8. VISUAL DESIGN
+==================================================
+
+Learning Mode:
+
+- larger buttons
+- more spacing
+- plain language
+- short explanations
+- one clear action per row
+- visible progress
+- friendly status messages
+- restrained colour use
+
+Expert Mode:
+
+- compact rows
+- dense but readable values
+- technical abbreviations
+- multi-column layouts
+- detailed graphs
+- advanced controls
+- minimal explanatory text
+
+Do not make Learning Mode childish.
+
+It should feel like a university engineering teaching tool.
+
+Do not make Expert Mode cluttered.
+
+It should feel like professional SCADA and condition-monitoring software.
+
+==================================================
+9. IMPLEMENTATION REQUIREMENTS
+==================================================
+
+Refactor the interface without duplicating operators or data state.
+
+Use:
+
+- one central digital twin state
+- one experience-mode property
+- shared operators
+- shared scene update logic
+- separate UI rendering functions
+- reusable glossary data
+- conditional panel drawing
+
+Recommended properties:
+
+experience_mode
+learning_step
+show_guidance
+show_engineering_details
+learning_topic
+analysis_view
+operating_mode
+
+Recommended architecture:
+
+ui/
+├── main_panel.py
+├── learning_mode.py
+├── expert_mode.py
+├── shared_widgets.py
+├── glossary.py
+└── educational_content.py
+
+Do not put all UI logic in one file.
+
+==================================================
+10. DELIVERABLE
+==================================================
+
+Produce a dual-experience Blender digital twin interface with:
+
+- Learning Mode for undergraduate teaching
+- Expert Mode for professors and researchers
+- shared underlying data
+- simple and technical terminology
+- guided component exploration
+- guided fault scenarios
+- Raman sensing explanation
+- optional quiz
+- compact expert SCADA dashboard
+- seamless mode switching
+- preserved digital twin state
+- modular code
+
+Final result:
+
+A first-time undergraduate should be able to understand:
+
+- what a string inverter does
+- what the main components are
+- why temperature matters
+- how a fault develops
+- how Raman DTS detects a hotspot
+- how health and prediction information are used
+
+A professor or researcher should be able to:
+
+- inspect the full state quickly
+- change fault scenarios
+- scrub the timeline
+- review thermal and Raman profiles
+- inspect ML confidence and RUL
+- control overlays
+- observe the system without introductory clutter
