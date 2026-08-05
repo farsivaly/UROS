@@ -11,7 +11,7 @@ import {
   SITE_PBR_URLS,
   type TextureKit,
 } from './textures'
-import SolarArray from './SolarArray'
+import SolarArray, { TRANSFORMER_PAD } from './SolarArray'
 import TransformerStation from './TransformerStation'
 import StringInverter from './StringInverter'
 import SiteTerrain from './SiteTerrain'
@@ -188,6 +188,7 @@ function shouldHidePlaceholder(name: string) {
     name.startsWith('InverterStation') ||
     name.startsWith('InverterCabinet') ||
     name.startsWith('Transformer') ||
+    name.startsWith('CableTrench') ||
     name === 'Door' ||
     name.startsWith('Door_') ||
     name.startsWith('IGBT_') ||
@@ -559,7 +560,7 @@ export default function FarmScene({
         mode={labelMode}
       />
       <TransformerStation
-        position={[16, 0, 14]}
+        position={TRANSFORMER_PAD}
         selectedName={selectedName}
         onSelect={onSelect}
       />

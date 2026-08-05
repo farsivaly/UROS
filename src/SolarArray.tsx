@@ -11,13 +11,13 @@ type SolarArrayProps = {
  * Ground-mount array layout (aligned with CableTrench_Row_* Z bands from solar_farm.glb,
  * then extended north/south with extra rows).
  */
-export const ROW_COUNT = 8
-export const PANELS_PER_ROW = 10
-export const ROW_SPACING = 5.5
+export const ROW_COUNT = 12
+export const PANELS_PER_ROW = 18
+export const ROW_SPACING = 5.2
 /** World Z of each row centre — includes the four site trenches plus extra rows */
 export const ROW_ZS: readonly number[] = Array.from(
   { length: ROW_COUNT },
-  (_, i) => 18 - i * ROW_SPACING,
+  (_, i) => 20 - i * ROW_SPACING,
 )
 export const TRENCH_X0 = -10
 export const TRENCH_X1 = 6
@@ -35,9 +35,22 @@ export const PANEL_PITCH = PANEL_W + PANEL_GAP
 export const ROW_LENGTH = PANELS_PER_ROW * PANEL_PITCH
 /** First (left / west) panel centre */
 export const PANEL_ORIGIN_X = -10.2
+/** Last (east) panel centre along a row */
+export const PANEL_EAST_X = PANEL_ORIGIN_X + (PANELS_PER_ROW - 1) * PANEL_PITCH
+/** Mid Z of the full panel field */
+export const FIELD_MID_Z = (ROW_ZS[0] + ROW_ZS[ROW_ZS.length - 1]) / 2
+/**
+ * MV transformer pad — east of the array so it never overlaps panels.
+ * [x, y, z] world position for the station origin.
+ */
+export const TRANSFORMER_PAD: [number, number, number] = [
+  PANEL_EAST_X + 9.5,
+  0,
+  FIELD_MID_Z,
+]
 
-/** How many leftmost rows get a string inverter */
-export const INVERTER_ROW_COUNT = 4
+/** One string inverter at the west end of every panel row */
+export const INVERTER_ROW_COUNT = ROW_COUNT
 
 const RACK_Y = 1.35
 const POST_H = 1.55
@@ -233,7 +246,7 @@ export function getLeftPanelPosition(rowIndex: number): { x: number; z: number }
 }
 
 /**
- * World positions for string inverters on the left end of the first rows.
+ * World positions for string inverters — one at the left end of each panel row.
  * Door faces −X (outward from the array).
  */
 export function getStringInverterPositions(): [number, number, number][] {

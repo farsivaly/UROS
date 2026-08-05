@@ -16,7 +16,7 @@ const CLAD_R = 0.072
 
 const BEAT_NOTES = [
   'Stokes (orange) lost energy; anti-Stokes (purple) gained energy from heat. More heat → stronger anti-Stokes.',
-  'Return delay tells you where along the fibre the light came from — that is spatial localisation.',
+  'Return delay tells you where along the fibre the light came from. That is spatial localisation.',
   'Together: temperature from the two returns, position from timing. One fibre covers the whole path.',
 ]
 
@@ -25,6 +25,7 @@ type Props = {
   ramanPulse: boolean
   hotspotDistanceM?: number | null
   maxTempC?: number | null
+  className?: string
 }
 
 function axisPos(t: number, y = 0, z = 0) {
@@ -322,11 +323,16 @@ export default function RamanFibreDetailPopup({
   ramanPulse,
   hotspotDistanceM,
   maxTempC,
+  className,
 }: Props) {
   const note = BEAT_NOTES[Math.min(beatIndex, BEAT_NOTES.length - 1)]
 
   return (
-    <div className="fibre-detail-popup" role="dialog" aria-label="Raman fibre detail view">
+    <div
+      className={['fibre-detail-popup', className].filter(Boolean).join(' ')}
+      role="dialog"
+      aria-label="Raman fibre detail view"
+    >
       <header className="fibre-detail-head">
         <div>
           <p className="fibre-detail-kicker">Expanded detail</p>

@@ -22,6 +22,7 @@ import IntroCameraRig from './IntroCameraRig'
 import ControlRoomOverlay from './ControlRoomOverlay'
 import BurnCursor from './BurnCursor'
 import TrophyCeremony from './TrophyCeremony'
+import RamanFibreDetailPopup from './RamanFibreDetailPopup'
 import { INTRO_STEPS, type IntroSceneCue } from './introContent'
 import ViewportHud from './ViewportHud'
 import type { LabelMode } from './ComponentLabels'
@@ -132,6 +133,7 @@ export default function App() {
     setShowIntro(false)
     setExperience(mode)
     setPanelOpen(true)
+    setComponentLabels(false)
     if (mode === 'learning') {
       setLabelMode('temp')
     } else {
@@ -535,6 +537,13 @@ export default function App() {
             onSkipExpert={() => finishIntro('expert')}
           />
         )}
+        {showIntro && introCue === 'raman-fibre' && (
+          <RamanFibreDetailPopup
+            beatIndex={0}
+            ramanPulse
+            className="intro-raman-popup"
+          />
+        )}
         <ControlRoomOverlay
           open={controlRoomOpen}
           onClose={closeControlRoom}
@@ -697,6 +706,7 @@ export default function App() {
           onTempOverlay={setTempOverlay}
           onSkipTutorial={() => {
             setExperience('expert')
+            setComponentLabels(false)
             setLabelMode('names')
           }}
         />

@@ -149,7 +149,7 @@ function ComponentMatchQuiz({
         </button>
         {(checked || passed) && (
           <span className={`match-status${allCorrect ? ' ok' : ''}`}>
-            {allCorrect ? 'All matched — continue when ready' : 'Some pairs are wrong — try again'}
+            {allCorrect ? 'All matched. Continue when ready' : 'Some pairs are wrong. Try again'}
           </span>
         )}
       </div>
@@ -239,7 +239,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'Mission briefing',
         narrative:
-          'A solar farm has suddenly reported a fault. Your job is to investigate why — starting from the site, then into one inverter.',
+          'A solar farm has suddenly reported a fault. Your job is to investigate why, starting from the site, then into one inverter.',
         ask: 'Where does the electricity begin?',
         cue: 'Look over the whole farm.',
         run: (c) => {
@@ -261,7 +261,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'Path to the inverter',
         narrative:
-          'The electricity travels along cables and trenches toward the string inverter. Follow that path in your mind — DC in, AC out.',
+          'The electricity travels along cables and trenches toward the string inverter. Follow that path in your mind: DC in, AC out.',
         cue: 'Focus one string inverter.',
         run: (c) => {
           c.onInspect(c.unit)
@@ -302,8 +302,8 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'MPPT tracks maximum power',
         narrative:
-          'Power from a panel is P = V × I. On the I–V curve there is one Maximum Power Point (Vmp, Imp). MPPT continually adjusts the load so the string operates near that point as sunlight changes.',
-        cue: 'Highlight the MPPT section and study the I–V curve.',
+          'Power from a panel is P = V × I. On the IV curve there is one Maximum Power Point (Vmp, Imp). MPPT continually adjusts the load so the string operates near that point as sunlight changes.',
+        cue: 'Highlight the MPPT section and study the IV curve.',
         run: (c) => {
           c.onDoorMode('open')
           c.onPick(`${c.unit}_MPPTSection`)
@@ -312,7 +312,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'IGBTs create AC',
         narrative:
-          'The IGBT modules rapidly switch the DC power to generate AC. That switching is where electrical stress — and heat — begins.',
+          'The IGBT modules rapidly switch the DC power to generate AC. That switching is where electrical stress and heat begins.',
         cue: 'Highlight an IGBT module.',
         run: (c) => {
           c.onDoorMode('open')
@@ -323,7 +323,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'Heat sink removes heat',
         narrative:
-          'Switching generates heat. The heat sink removes this heat before temperatures become dangerous — but only if the thermal interface stays healthy.',
+          'Switching generates heat. The heat sink removes this heat before temperatures become dangerous, but only if the thermal interface stays healthy.',
         cue: 'Highlight the heat sink.',
         run: (c) => c.onPick(`${c.unit}_HeatSink`),
       },
@@ -339,7 +339,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'Match each job',
         narrative:
-          'Before we look at faults, lock in why each part exists. Match the function to the component — click a name to highlight it in the cabinet.',
+          'Before we look at faults, lock in why each part exists. Match the function to the component. Click a name to highlight it in the cabinet.',
         ask: 'Can you pair every component with its job?',
         cue: 'Fill each dropdown, then check your matches.',
         run: (c) => {
@@ -356,7 +356,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'What if cooling weakens?',
         narrative:
-          'Ask yourself: what happens if the heat sink becomes less effective — for example when the thermal interface degrades?',
+          'Ask yourself: what happens if the heat sink becomes less effective, for example when the thermal interface degrades?',
         ask: 'Where would heat build up first?',
         cue: 'Load the TIM degradation scenario at a healthy start.',
         run: (c) => {
@@ -384,7 +384,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'How would we detect this?',
         narrative:
-          'Before a hard failure, operators need a way to see local heat along a path — not just one sensor reading. That is why Raman DTS fibre is installed.',
+          'Before a hard failure, operators need a way to see local heat along a path, not just one sensor reading. That is why Raman DTS fibre is installed.',
         ask: 'How would we detect this before failure?',
         cue: 'Highlight the Raman fibre.',
         run: (c) => {
@@ -401,7 +401,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'Stokes and anti-Stokes',
         narrative:
-          'A laser pulse travels down the fibre. Tiny amounts of light scatter back in two colours: Stokes (slightly redder — the light lost a little energy) and anti-Stokes (slightly bluer — the light gained energy from heat in the glass). Hotter glass means more anti-Stokes. Comparing the two tells us temperature.',
+          'A laser pulse travels down the fibre. Tiny amounts of light scatter back in two colours: Stokes (slightly redder: the light lost a little energy) and anti-Stokes (slightly bluer: the light gained energy from heat in the glass). Hotter glass means more anti-Stokes. Comparing the two tells us temperature.',
         ask: 'Which return grows more when the fibre heats up?',
         cue: 'Watch the orange Stokes and purple anti-Stokes returns on the fibre.',
         run: (c) => {
@@ -417,7 +417,7 @@ function beatsFor(lesson: LessonId): Beat[] {
         narrative:
           'We also know where each reading came from. Light takes time to go out and come back. A longer delay means a farther point along the fibre. That is spatial localisation: the same fibre becomes a continuous line of temperature sensors, not one spot measurement.',
         ask: 'What does a longer return delay mean?',
-        cue: 'Follow the pulse out, then the returns — delay maps to distance.',
+        cue: 'Follow the pulse out, then the returns: delay maps to distance.',
         run: (c) => {
           c.onRamanPulse(true)
           c.onPick(`${c.unit}_RamanFibre`)
@@ -427,7 +427,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'Why this matters',
         narrative:
-          'Point sensors only report one place. Raman DTS gives temperature and position along the whole path, so a hot IGBT shows up as a hotspot at a known distance — early warning before a hard failure. Location from delay; temperature from the anti-Stokes / Stokes balance.',
+          'Point sensors only report one place. Raman DTS gives temperature and position along the whole path, so a hot IGBT shows up as a hotspot at a known distance, early warning before a hard failure. Location from delay; temperature from the anti-Stokes / Stokes balance.',
         cue: 'Confirm the hotspot distance and temperature on the fibre and board.',
         run: (c) => {
           c.onRamanPulse(true)
@@ -457,7 +457,7 @@ function beatsFor(lesson: LessonId): Beat[] {
       {
         title: 'Temperature → Health',
         narrative:
-          'Temperature evidence feeds a health score. Health is a simplified condition indicator supplied by the analytics system — not invented in the viewer.',
+          'Temperature evidence feeds a health score. Health is a simplified condition indicator supplied by the analytics system, not invented in the viewer.',
         cue: 'Watch health while the fault sits mid-progress.',
         run: (c) => {
           c.onProgress(0.55)
@@ -482,7 +482,7 @@ function beatsFor(lesson: LessonId): Beat[] {
     {
       title: 'Forecast the fault',
       narrative:
-        'Move through the prediction horizon. The hotspot grows, health decreases, and ML confidence rises — using externally supplied forecast frames, labelled as predicted, not measured.',
+        'Move through the prediction horizon. The hotspot grows, health decreases, and ML confidence rises, using externally supplied forecast frames, labelled as predicted, not measured.',
       cue: 'Start prediction playback.',
       run: (c) => {
         c.onScenario('tim')
@@ -677,7 +677,7 @@ export default function LearningDashboard(props: Props) {
         <div className="learn-top-row">
           <div>
             <h2>Investigation</h2>
-            <p className="hint tight">Virtual laboratory — find the fault</p>
+            <p className="hint tight">Virtual laboratory: find the fault</p>
           </div>
           <button type="button" className="tool-btn skip-btn" onClick={onSkipTutorial}>
             Skip Tutorial
@@ -735,16 +735,16 @@ export default function LearningDashboard(props: Props) {
             <figure className="learn-figure">
               <img
                 src="/images/mppt-iv-curve.png"
-                alt="Solar panel I–V curve showing Isc, Voc, and the Maximum Power Point (Vmp, Imp)"
+                alt="Solar panel IV curve showing Isc, Voc, and the Maximum Power Point (Vmp, Imp)"
               />
               <figcaption>
-                Sample I–V curve: the load should sit near Imp / Vmp so power is maximised.
+                Sample IV curve: the load should sit near Imp / Vmp so power is maximised.
                 <a
                   href="https://www.spiritenergy.co.uk/kb-solar-mppt"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Source: Spirit Energy — What is MPPT?
+                  Source: Spirit Energy: What is MPPT?
                 </a>
               </figcaption>
             </figure>
@@ -909,7 +909,7 @@ export default function LearningDashboard(props: Props) {
                     Stop / maintain
                   </button>
                   {decision === 'run' && (
-                    <p className="hint">Risky — RUL and confidence suggest planning maintenance soon.</p>
+                    <p className="hint">Risky: RUL and confidence suggest planning maintenance soon.</p>
                   )}
                   {decision === 'stop' && (
                     <p className="hint">Sound engineering judgment for a severe TIM forecast.</p>
@@ -929,7 +929,7 @@ export default function LearningDashboard(props: Props) {
           )}
 
           <p className="hint tight">
-            Active: {active?.inverter_id ?? unit} · {scenario?.fault_type ?? '—'}
+            Active: {active?.inverter_id ?? unit} · {scenario?.fault_type ?? 'n/a'}
           </p>
             </>
           )}

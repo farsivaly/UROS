@@ -1,5 +1,11 @@
-import { useEffect, useState } from 'react'
-import { EARTH_CREDIT, INTRO_STEPS, type IntroCounter, type IntroStepId } from './introContent'
+import { Fragment, useEffect, useState, type ReactNode } from 'react'
+import {
+  EARTH_CREDIT,
+  INTRO_STEPS,
+  type IntroCounter,
+  type IntroInlineRef,
+  type IntroStepId,
+} from './introContent'
 
 type Props = {
   stepIndex: number
@@ -15,6 +21,52 @@ function easeOutCubic(t: number) {
 function formatCount(value: number, decimals = 0) {
   if (decimals > 0) return value.toFixed(decimals)
   return Math.round(value).toLocaleString('en-GB')
+}
+
+function Cited({ children, reference }: { children: ReactNode; reference: string }) {
+  return (
+    <span className="intro-cite" tabIndex={0}>
+      {children}
+      <span className="intro-cite-tip" role="tooltip">
+        {reference}
+      </span>
+    </span>
+  )
+}
+
+/** Wrap first occurrence of each ref text with a hover citation. */
+function renderWithRefs(text: string, refs?: IntroInlineRef[]): ReactNode {
+  if (!refs?.length) return text
+
+  type Piece = { text: string; reference?: string }
+  let pieces: Piece[] = [{ text }]
+
+  for (const ref of refs) {
+    const next: Piece[] = []
+    for (const piece of pieces) {
+      if (piece.reference || !piece.text.includes(ref.text)) {
+        next.push(piece)
+        continue
+      }
+      const idx = piece.text.indexOf(ref.text)
+      const before = piece.text.slice(0, idx)
+      const after = piece.text.slice(idx + ref.text.length)
+      if (before) next.push({ text: before })
+      next.push({ text: ref.text, reference: ref.reference })
+      if (after) next.push({ text: after })
+    }
+    pieces = next
+  }
+
+  return pieces.map((p, i) =>
+    p.reference ? (
+      <Cited key={`${p.text}-${i}`} reference={p.reference}>
+        {p.text}
+      </Cited>
+    ) : (
+      <Fragment key={`${p.text}-${i}`}>{p.text}</Fragment>
+    ),
+  )
 }
 
 function IntroCounters({ counters, playKey }: { counters: IntroCounter[]; playKey: number }) {
@@ -45,16 +97,23 @@ function IntroCounters({ counters, playKey }: { counters: IntroCounter[]; playKe
 
   return (
     <div className="intro-counters" aria-live="polite">
-      {counters.map((c, i) => (
-        <div key={c.label} className="intro-counter">
-          <div className="intro-counter-value">
+      {counters.map((c, i) => {
+        const valueNode = (
+          <>
             {c.prefix}
             {formatCount(values[i] ?? 0, c.decimals)}
             {c.suffix}
+          </>
+        )
+        return (
+          <div key={c.label} className="intro-counter">
+            <div className="intro-counter-value">
+              {c.reference ? <Cited reference={c.reference}>{valueNode}</Cited> : valueNode}
+            </div>
+            <div className="intro-counter-label">{c.label}</div>
           </div>
-          <div className="intro-counter-label">{c.label}</div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }
@@ -79,12 +138,12 @@ export default function IntroOverlay({
           Step {stepIndex + 1} / {INTRO_STEPS.length}
         </p>
         <h1 className="intro-headline">{step.headline}</h1>
-        <p className="intro-body">{step.body}</p>
+        <p className="intro-body">{renderWithRefs(step.body, step.refs)}</p>
 
         {step.counters && step.counters.length > 0 ? (
           <IntroCounters counters={step.counters} playKey={stepIndex} />
         ) : (
-          <p className="intro-stat">{step.stat}</p>
+          <p className="intro-stat">{renderWithRefs(step.stat, step.refs)}</p>
         )}
 
         <div className="intro-actions">

@@ -29,7 +29,7 @@ function displacePlane(geo: THREE.PlaneGeometry) {
  */
 export default function SiteTerrain({ map, roughnessMap, normalMap }: Props) {
   const { geo, mat } = useMemo(() => {
-    const geometry = new THREE.PlaneGeometry(110, 90, 96, 72)
+    const geometry = new THREE.PlaneGeometry(130, 110, 112, 88)
     displacePlane(geometry)
     const material = new THREE.MeshStandardMaterial({
       color: '#ffffff',

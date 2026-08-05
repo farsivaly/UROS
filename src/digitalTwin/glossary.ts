@@ -32,7 +32,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     why_temperature:
       'If the TIM degrades, heat stays in the IGBT and a hotspot forms.',
     if_fails:
-      'IGBT temperature rises while cooling looks less effective — the core research fault story.',
+      'IGBT temperature rises while cooling looks less effective: the core research fault story.',
   },
   HeatSink: {
     simple_name: 'Cooling metal block',
@@ -117,7 +117,7 @@ export const SCENARIO_LESSONS: Record<string, ScenarioLesson> = {
   healthy: {
     id: 'healthy',
     title: 'Healthy Operation',
-    what_changing: 'Nothing unusual — temperatures and health stay in the normal range.',
+    what_changing: 'Nothing unusual: temperatures and health stay in the normal range.',
     what_watch: 'Cool/green fibre colours and a high health score.',
     expected: 'The inverter stays healthy with only small temperature variation.',
   },
@@ -148,11 +148,11 @@ export const SCENARIO_LESSONS: Record<string, ScenarioLesson> = {
 }
 
 export function faultDevelopmentLabel(progress: number): string {
-  if (progress < 0.2) return '0% — Healthy'
-  if (progress < 0.4) return '25% — Early Warning'
-  if (progress < 0.65) return '50% — Developing Fault'
-  if (progress < 0.85) return '75% — Serious'
-  return '100% — Severe'
+  if (progress < 0.2) return '0%: Healthy'
+  if (progress < 0.4) return '25%: Early Warning'
+  if (progress < 0.65) return '50%: Developing Fault'
+  if (progress < 0.85) return '75%: Serious'
+  return '100%: Severe'
 }
 
 export function faultDevelopmentExplain(progress: number, scenarioId: string): string {

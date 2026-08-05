@@ -10,6 +10,7 @@ import {
 } from './textures'
 import {
   getStringInverterPositions,
+  INVERTER_ROW_COUNT,
   ROW_ZS,
   TRENCH_X1,
 } from './SolarArray'
@@ -41,7 +42,7 @@ type Props = {
   focusInverterId?: string | null
 }
 
-const UNIT_COUNT = 4
+const UNIT_COUNT = INVERTER_ROW_COUNT
 
 /** Door faces local −Z; rotate so open face looks west (−X) away from panels */
 const UNIT_YAW = Math.PI / 2

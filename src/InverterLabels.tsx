@@ -7,6 +7,9 @@ import {
 } from './digitalTwin'
 import { getStringInverterPositions } from './SolarArray'
 
+/** Fleet badges only for the first four units (twin-backed) for now. */
+const LABELED_INVERTER_COUNT = 4
+
 type Props = {
   snapshot: TwinSnapshot | null
   visible: boolean
@@ -17,7 +20,7 @@ type Props = {
  */
 export default function InverterLabels({ snapshot, visible }: Props) {
   if (!visible) return null
-  const positions = getStringInverterPositions()
+  const positions = getStringInverterPositions().slice(0, LABELED_INVERTER_COUNT)
 
   return (
     <group name="InverterLabels">

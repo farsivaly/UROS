@@ -1,3 +1,5 @@
+import { INVERTER_ROW_COUNT, PANELS_PER_ROW, ROW_COUNT } from './SolarArray'
+
 export type HealthStatus = 'ok' | 'warn' | 'danger'
 
 export type ComponentMeta = {
@@ -136,12 +138,10 @@ const INTERNAL_SUFFIXES = [
   'Door',
 ] as const
 
-export const STRING_INVERTER_UNIT_IDS = [
-  'StringInverter_01',
-  'StringInverter_02',
-  'StringInverter_03',
-  'StringInverter_04',
-] as const
+export const STRING_INVERTER_UNIT_IDS = Array.from(
+  { length: INVERTER_ROW_COUNT },
+  (_, i) => `StringInverter_${String(i + 1).padStart(2, '0')}`,
+)
 
 export function internalsForUnit(unitId: string): ComponentMeta[] {
   return STRING_INVERTER_INTERNAL_DEFS.map((def, i) => ({
@@ -164,7 +164,7 @@ export const QUICK_FOCUS: ComponentMeta[] = [
     id: 'SolarPanelsCAD',
     label: 'Solar Panel Arrays',
     category: 'Generation',
-    description: 'Eight horizontal ground-mount rows, 10 large modules each.',
+    description: `${ROW_COUNT} horizontal ground-mount rows, ${PANELS_PER_ROW} modules each — one string inverter per row.`,
     health: 'ok',
     tags: ['dc', 'pv'],
   },
@@ -184,38 +184,14 @@ export const QUICK_FOCUS: ComponentMeta[] = [
     health: 'ok',
     tags: ['ac', 'string'],
   },
-  {
-    id: 'StringInverter_01',
-    label: 'String Inverter 01',
+  ...STRING_INVERTER_UNIT_IDS.map((id, i) => ({
+    id,
+    label: `String Inverter ${String(i + 1).padStart(2, '0')}`,
     category: 'Conversion',
-    description: 'Mounted on the left end of panel row 01.',
-    health: 'ok',
-    tags: ['string', 'igbt', 'mppt'],
-  },
-  {
-    id: 'StringInverter_02',
-    label: 'String Inverter 02',
-    category: 'Conversion',
-    description: 'Mounted on the left end of panel row 02.',
-    health: 'ok',
-    tags: ['string'],
-  },
-  {
-    id: 'StringInverter_03',
-    label: 'String Inverter 03',
-    category: 'Conversion',
-    description: 'Mounted on the left end of panel row 03.',
-    health: 'warn',
-    tags: ['string'],
-  },
-  {
-    id: 'StringInverter_04',
-    label: 'String Inverter 04',
-    category: 'Conversion',
-    description: 'Mounted on the left end of panel row 04.',
-    health: 'ok',
-    tags: ['string'],
-  },
+    description: `Mounted on the left end of panel row ${String(i + 1).padStart(2, '0')}.`,
+    health: (i === 2 ? 'warn' : 'ok') as HealthStatus,
+    tags: i === 0 ? ['string', 'igbt', 'mppt'] : ['string'],
+  })),
   {
     id: 'ACCombiner',
     label: 'AC Combiner / Switchgear',

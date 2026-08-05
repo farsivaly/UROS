@@ -28,6 +28,15 @@ export type IntroCounter = {
   decimals?: number
   /** Count duration in ms */
   durationMs?: number
+  /** Hover citation — placeholder until real source is added */
+  reference?: string
+}
+
+/** Inline number/phrase in body or stat that shows a hover citation. */
+export type IntroInlineRef = {
+  /** Exact substring to wrap (first match). */
+  text: string
+  reference: string
 }
 
 export type IntroStep = {
@@ -37,7 +46,11 @@ export type IntroStep = {
   stat: string
   scene: IntroSceneCue
   counters?: IntroCounter[]
+  /** Citations for numbers mentioned in body / stat */
+  refs?: IntroInlineRef[]
 }
+
+export const REF_PLACEHOLDER = 'Reference placeholder — add source later'
 
 export const INTRO_STEPS: IntroStep[] = [
   {
@@ -54,9 +67,31 @@ export const INTRO_STEPS: IntroStep[] = [
     stat: 'UN 2030 sustainability targets',
     scene: 'space-demand',
     counters: [
-      { label: 'UN target year', value: 2030, durationMs: 1600 },
-      { label: 'Solar growth (2022)', value: 270, prefix: '+', suffix: ' TWh', durationMs: 1800 },
-      { label: 'Solar share → 2030', value: 50, suffix: '%', durationMs: 2000 },
+      {
+        label: 'UN target year',
+        value: 2030,
+        durationMs: 1600,
+        reference: REF_PLACEHOLDER,
+      },
+      {
+        label: 'Solar growth (2022)',
+        value: 270,
+        prefix: '+',
+        suffix: ' TWh',
+        durationMs: 1800,
+        reference: REF_PLACEHOLDER,
+      },
+      {
+        label: 'Solar share → 2030',
+        value: 50,
+        suffix: '%',
+        durationMs: 2000,
+        reference: REF_PLACEHOLDER,
+      },
+    ],
+    refs: [
+      { text: '2030', reference: REF_PLACEHOLDER },
+      { text: 'AI data centres', reference: REF_PLACEHOLDER },
     ],
   },
   {
@@ -65,6 +100,14 @@ export const INTRO_STEPS: IntroStep[] = [
     body: 'Photovoltaic systems are well placed to meet that need. Since 2022, solar output rose by a record 270 TWh (26%), bringing total generation to nearly 1,300 TWh. Solar now accounts for 42% of world electricity generation, and is projected to reach 50% by 2030.',
     stat: '+270 TWh in 2022 · ~1,300 TWh total · 50% by 2030',
     scene: 'farm-overview',
+    refs: [
+      { text: '270 TWh', reference: REF_PLACEHOLDER },
+      { text: '26%', reference: REF_PLACEHOLDER },
+      { text: '1,300 TWh', reference: REF_PLACEHOLDER },
+      { text: '42%', reference: REF_PLACEHOLDER },
+      { text: '50%', reference: REF_PLACEHOLDER },
+      { text: '2030', reference: REF_PLACEHOLDER },
+    ],
   },
   {
     id: 'inverters',
@@ -72,6 +115,7 @@ export const INTRO_STEPS: IntroStep[] = [
     body: 'Because of this pivotal role in the net-zero transition, every PV subsystem must stay reliable. String inverters convert DC from the panels into AC for the grid, yet they remain among the most failure-prone assets and a leading driver of maintenance and energy losses over a 25+ year life.',
     stat: 'Inverter faults → major O&M impact',
     scene: 'inverter-highlight',
+    refs: [{ text: '25+', reference: REF_PLACEHOLDER }],
   },
   {
     id: 'temperature',

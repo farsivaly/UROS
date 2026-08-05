@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { LabelMode } from './ComponentLabels'
+
+const NARROW_MQ = '(max-width: 820px)'
 
 type Props = {
   viewMode: 'overview' | 'inverter'
@@ -22,6 +24,10 @@ type Props = {
   onResetInverter: () => void
 }
 
+function isNarrowViewport() {
+  return typeof window !== 'undefined' && window.matchMedia(NARROW_MQ).matches
+}
+
 export default function ViewportHud({
   viewMode,
   tempOverlay,
@@ -42,7 +48,18 @@ export default function ViewportHud({
   onXray,
   onResetInverter,
 }: Props) {
-  const [open, setOpen] = useState(true)
+  // Collapsed by default on phone so it does not fight the dashboard sheet.
+  const [open, setOpen] = useState(() => !isNarrowViewport())
+
+  useEffect(() => {
+    const mq = window.matchMedia(NARROW_MQ)
+    const sync = () => {
+      if (mq.matches) setOpen(false)
+    }
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
 
   return (
     <aside className={`viewport-hud${open ? '' : ' collapsed'}`} aria-label="Viewport toggles">
