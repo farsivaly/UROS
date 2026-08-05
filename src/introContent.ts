@@ -97,17 +97,9 @@ export const INTRO_STEPS: IntroStep[] = [
   {
     id: 'solar',
     headline: 'Why Solar?',
-    body: 'Photovoltaic systems are well placed to meet that need. Since 2022, solar output rose by a record 270 TWh (26%), bringing total generation to nearly 1,300 TWh. Solar now accounts for 42% of world electricity generation, and is projected to reach 50% by 2030. This twin shows a compact farm with 12 string inverters, one at the end of each panel row.',
-    stat: '12 string inverters · +270 TWh in 2022 · 50% by 2030',
+    body: 'Photovoltaic systems are well placed to meet that need. Since 2022, solar output rose by a record 270 TWh (26%), bringing total generation to nearly 1,300 TWh. Solar now accounts for 42% of world electricity generation, and is projected to reach 50% by 2030.',
+    stat: '+270 TWh in 2022 · ~1,300 TWh total · 50% by 2030',
     scene: 'farm-overview',
-    counters: [
-      {
-        label: 'String inverters here',
-        value: 12,
-        durationMs: 1400,
-        reference: REF_PLACEHOLDER,
-      },
-    ],
     refs: [
       { text: '270 TWh', reference: REF_PLACEHOLDER },
       { text: '26%', reference: REF_PLACEHOLDER },
@@ -115,13 +107,12 @@ export const INTRO_STEPS: IntroStep[] = [
       { text: '42%', reference: REF_PLACEHOLDER },
       { text: '50%', reference: REF_PLACEHOLDER },
       { text: '2030', reference: REF_PLACEHOLDER },
-      { text: '12 string inverters', reference: REF_PLACEHOLDER },
     ],
   },
   {
     id: 'inverters',
     headline: 'Why Inverters?',
-    body: 'String inverters convert DC from the panels into AC for the grid. Count scales with plant size: as capacity grows in MW, more panel strings are added and each needs its own inverter, so a multi-MW farm can need dozens or hundreds of units. They remain among the most failure-prone assets and a leading driver of maintenance and energy losses over a 25+ year life.',
+    body: 'String inverters convert DC from the panels into AC for the grid. Count scales with plant size: as capacity grows in MW, more panel strings are added and each needs its own inverter, so a multi-MW farm can need hundreds of units. They remain among the most failure-prone assets and a leading driver of maintenance and energy losses over a 25+ year life.',
     stat: 'More MW → more strings → more inverters',
     scene: 'inverter-highlight',
     refs: [{ text: '25+', reference: REF_PLACEHOLDER }],
