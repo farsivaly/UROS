@@ -3439,7 +3439,42 @@ html.cursor-on-fire * {
   .intro-sheet {
     max-width: 100%;
     width: 100%;
-    max-height: min(68dvh, 100%);
+    max-height: min(48dvh, 22rem);
+  }
+
+  /* Keep the globe / farm visible above the story card */
+  .app.intro-space .intro-overlay {
+    justify-content: flex-end;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 38%,
+      rgba(2, 6, 14, 0.35) 58%,
+      rgba(2, 6, 14, 0.82) 78%,
+      rgba(2, 6, 14, 0.94) 100%
+    );
+  }
+
+  .app.intro-space .intro-sheet {
+    max-height: min(40dvh, 18.5rem);
+  }
+
+  .app.intro-space .intro-counters {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.3rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .app.intro-space .intro-counter {
+    padding: 0.35rem 0.25rem;
+  }
+
+  .app.intro-space .intro-counter-value {
+    font-size: 0.95rem;
+  }
+
+  .app.intro-space .intro-counter-label {
+    font-size: 0.52rem;
   }
 
   .intro-card {
@@ -3522,7 +3557,11 @@ html.cursor-on-fire * {
   }
 
   .intro-sheet {
-    max-height: min(62dvh, 100%);
+    max-height: min(46dvh, 21rem);
+  }
+
+  .app.intro-space .intro-sheet {
+    max-height: min(36dvh, 16.5rem);
   }
 
   .fibre-detail-popup.intro-raman-popup {
@@ -3540,6 +3579,10 @@ html.cursor-on-fire * {
 
   .app.intro-active:has(.intro-raman-popup) .intro-overlay {
     padding-top: calc(min(30dvh, 13.5rem) + 0.7rem + env(safe-area-inset-top, 0px));
+  }
+
+  .app.intro-active:has(.intro-raman-popup) .intro-sheet {
+    max-height: min(42dvh, 18rem);
   }
 }
 

@@ -25,6 +25,7 @@ import TrophyCeremony from './TrophyCeremony'
 import RamanFibreDetailPopup from './RamanFibreDetailPopup'
 import { INTRO_STEPS, type IntroSceneCue } from './introContent'
 import ViewportHud from './ViewportHud'
+import usePhoneProfile from './usePhoneProfile'
 import type { LabelMode } from './ComponentLabels'
 import {
   DEFAULT_TWIN_URL,
@@ -114,10 +115,12 @@ export default function App() {
   const [introStep, setIntroStep] = useState(0)
   const [cursorOnFire, setCursorOnFire] = useState(false)
   const [previewTrophy, setPreviewTrophy] = useState(false)
+  const phone = usePhoneProfile()
 
   const activeUnit = activeInverterId(selectedName)
   const introCue: IntroSceneCue = INTRO_STEPS[Math.min(introStep, INTRO_STEPS.length - 1)].scene
   const introSpace = showIntro && (introCue === 'space' || introCue === 'space-demand')
+  const showFarm = !introSpace
   const controlRoomOpen =
     !showIntro &&
     !!selectedName &&
@@ -450,7 +453,7 @@ export default function App() {
   }
 
   return (
-    <div className={`app${panelOpen && !showIntro ? '' : ' panel-collapsed'}${showIntro ? '' : ' has-status-bar'} experience-${experience}${mode === 'replay' ? ' replay-open' : ''}${showIntro ? ' intro-active' : ''}`}>
+    <div className={`app${panelOpen && !showIntro ? '' : ' panel-collapsed'}${showIntro ? '' : ' has-status-bar'} experience-${experience}${mode === 'replay' ? ' replay-open' : ''}${showIntro ? ' intro-active' : ''}${introSpace ? ' intro-space' : ''}${phone ? ' phone' : ''}`}>
       {!showIntro && (
       <div className="topbar">
         <div className="brand">
@@ -540,7 +543,8 @@ export default function App() {
         {showIntro && introCue === 'raman-fibre' && (
           <RamanFibreDetailPopup
             beatIndex={0}
-            ramanPulse
+            ramanPulse={!phone}
+            lite={phone}
             className="intro-raman-popup"
           />
         )}
@@ -553,14 +557,16 @@ export default function App() {
         <TrophyCeremony open={previewTrophy} onNext={() => setPreviewTrophy(false)} />
         <ErrorBoundary>
           <Canvas
-            shadows
-            dpr={[1, 1.5]}
-            camera={{ position: introSpace ? [0.6, 0.35, 7.4] : [45, 32, 55], fov: 40, near: 0.1, far: 500 }}
+            shadows={!phone}
+            dpr={phone ? 1 : [1, 1.5]}
+            camera={{ position: introSpace ? (phone ? [0.35, 1.85, 8.2] : [0.6, 0.35, 7.4]) : [45, 32, 55], fov: phone && introSpace ? 36 : 40, near: 0.1, far: 500 }}
             gl={{
-              antialias: true,
+              antialias: !phone,
+              powerPreference: phone ? 'low-power' : 'high-performance',
               toneMapping: ACESFilmicToneMapping,
               toneMappingExposure: introSpace ? 1.15 : 1.12,
             }}
+            performance={{ min: phone ? 0.4 : 0.5 }}
             onPointerDown={(e) => {
               pointerDown.current = { x: e.clientX, y: e.clientY }
             }}
@@ -569,9 +575,9 @@ export default function App() {
             {introSpace ? (
               <color attach="background" args={['#02060e']} />
             ) : (
-              <fog attach="fog" args={['#b9d3e8', 110, 240]} />
+              <fog attach="fog" args={['#b9d3e8', phone ? 90 : 110, phone ? 200 : 240]} />
             )}
-            {!introSpace && (
+            {showFarm && !phone && (
               <Sky
                 sunPosition={[70, 48, -25]}
                 turbidity={3.2}
@@ -580,16 +586,17 @@ export default function App() {
                 mieDirectionalG={0.8}
               />
             )}
-            {!introSpace && (
+            {showFarm && phone && <color attach="background" args={['#b9d3e8']} />}
+            {showFarm && (
               <>
-                <ambientLight intensity={0.32} />
-                <hemisphereLight args={['#d4e6ff', '#6a7558', 0.5]} />
+                <ambientLight intensity={phone ? 0.45 : 0.32} />
+                <hemisphereLight args={['#d4e6ff', '#6a7558', phone ? 0.65 : 0.5]} />
                 <directionalLight
-                  castShadow
+                  castShadow={!phone}
                   position={[55, 55, -20]}
-                  intensity={1.45}
+                  intensity={phone ? 1.15 : 1.45}
                   color="#fff4e6"
-                  shadow-mapSize={[2048, 2048]}
+                  shadow-mapSize={phone ? [512, 512] : [2048, 2048]}
                   shadow-bias={-0.0002}
                   shadow-camera-far={160}
                   shadow-camera-left={-70}
@@ -597,56 +604,66 @@ export default function App() {
                   shadow-camera-top={70}
                   shadow-camera-bottom={-70}
                 />
-                <directionalLight position={[-40, 22, 28]} intensity={0.22} color="#a8c4e0" />
+                {!phone && (
+                  <directionalLight position={[-40, 22, 28]} intensity={0.22} color="#a8c4e0" />
+                )}
               </>
             )}
             <Suspense fallback={null}>
               {showIntro && (
                 <>
-                  <IntroCameraRig cue={introCue} />
-                  <EarthGlobe visible={introSpace} highlightDemand={introCue === 'space-demand'} />
+                  <IntroCameraRig cue={introCue} phoneFrame={phone} />
+                  <EarthGlobe
+                    visible={introSpace}
+                    highlightDemand={introCue === 'space-demand'}
+                    phoneLite={phone}
+                  />
                 </>
               )}
-              <group visible={!introSpace}>
-                <FarmScene
-                  selectedName={selectedName}
-                  onSelect={(name) => {
-                    if (showIntro) return
-                    if (name) pick(name)
-                    else setSelectedName(null)
-                  }}
-                  focusTarget={focusTarget}
-                  viewMode={viewMode}
-                  cameraPreset={cameraPreset}
-                  activeUnitId={activeUnit}
-                  doorMode={doorMode}
-                  exploded={exploded}
-                  xray={xray}
-                  twin={twin}
-                  tempOverlay={tempOverlay}
-                  fibreOverlay={fibreOverlay}
-                  showLabels={showLabels && viewMode === 'overview' && !showIntro}
-                  componentLabels={componentLabels && !showIntro}
-                  labelMode={labelMode}
-                  ramanPulse={ramanPulse}
-                  focusInverterId={scenario ? sceneUnitId(scenario.inverter_id) : null}
-                />
-                <ContactShadows
-                  position={[0, -0.02, 0]}
-                  opacity={0.4}
-                  scale={120}
-                  blur={2.8}
-                  far={30}
-                />
-              </group>
+              {showFarm && (
+                <group>
+                  <FarmScene
+                    selectedName={selectedName}
+                    onSelect={(name) => {
+                      if (showIntro) return
+                      if (name) pick(name)
+                      else setSelectedName(null)
+                    }}
+                    focusTarget={focusTarget}
+                    viewMode={viewMode}
+                    cameraPreset={cameraPreset}
+                    activeUnitId={activeUnit}
+                    doorMode={doorMode}
+                    exploded={exploded}
+                    xray={xray}
+                    twin={twin}
+                    tempOverlay={tempOverlay}
+                    fibreOverlay={fibreOverlay}
+                    showLabels={showLabels && viewMode === 'overview' && !showIntro}
+                    componentLabels={componentLabels && !showIntro}
+                    labelMode={labelMode}
+                    ramanPulse={ramanPulse}
+                    focusInverterId={scenario ? sceneUnitId(scenario.inverter_id) : null}
+                  />
+                  {!phone && (
+                    <ContactShadows
+                      position={[0, -0.02, 0]}
+                      opacity={0.4}
+                      scale={120}
+                      blur={2.8}
+                      far={30}
+                    />
+                  )}
+                </group>
+              )}
             </Suspense>
             <OrbitControls
               makeDefault
-              enableDamping
+              enableDamping={!phone}
               maxPolarAngle={introSpace ? Math.PI : Math.PI * 0.49}
               minDistance={introSpace ? 6 : 2}
               maxDistance={introSpace ? 40 : 180}
-              target={introSpace ? [0, 0, 0] : [0, 1, 0]}
+              target={introSpace ? (phone ? [0, 1.35, 0] : [0, 0, 0]) : [0, 1, 0]}
               enabled={!showIntro || introSpace}
             />
           </Canvas>

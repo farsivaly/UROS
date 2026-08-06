@@ -2,8 +2,14 @@ import { useEffect } from 'react'
 import { useThree } from '@react-three/fiber'
 import type { IntroSceneCue } from './introContent'
 
+type Props = {
+  cue: IntroSceneCue
+  /** Lift framing so the globe sits in the clear area above the intro card. */
+  phoneFrame?: boolean
+}
+
 /** Positions the camera for each intro beat. */
-export default function IntroCameraRig({ cue }: { cue: IntroSceneCue }) {
+export default function IntroCameraRig({ cue, phoneFrame = false }: Props) {
   const { camera, controls } = useThree()
 
   useEffect(() => {
@@ -13,24 +19,35 @@ export default function IntroCameraRig({ cue }: { cue: IntroSceneCue }) {
     } | null
 
     if (cue === 'space' || cue === 'space-demand') {
-      camera.position.set(0.6, 0.35, 7.4)
+      if (phoneFrame) {
+        // Compose for portrait: subject in the upper ~55% above the card
+        camera.position.set(0.35, 1.85, 8.2)
+        ctrl?.target.set(0, 1.35, 0)
+      } else {
+        camera.position.set(0.6, 0.35, 7.4)
+        ctrl?.target.set(0, 0, 0)
+      }
       camera.near = 0.1
       camera.far = 500
       camera.updateProjectionMatrix()
-      ctrl?.target.set(0, 0, 0)
       ctrl?.update?.()
       return
     }
 
     if (cue === 'farm-overview') {
-      camera.position.set(45, 38, 55)
-      ctrl?.target.set(0, 1, 0)
+      if (phoneFrame) {
+        camera.position.set(38, 42, 48)
+        ctrl?.target.set(0, 4, 0)
+      } else {
+        camera.position.set(45, 38, 55)
+        ctrl?.target.set(0, 1, 0)
+      }
       ctrl?.update?.()
       return
     }
 
     // Later cues are driven by App focusTarget / cameraPreset on the farm scene
-  }, [camera, controls, cue])
+  }, [camera, controls, cue, phoneFrame])
 
   return null
 }

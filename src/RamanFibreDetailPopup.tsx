@@ -26,6 +26,7 @@ type Props = {
   hotspotDistanceM?: number | null
   maxTempC?: number | null
   className?: string
+  lite?: boolean
 }
 
 function axisPos(t: number, y = 0, z = 0) {
@@ -324,6 +325,7 @@ export default function RamanFibreDetailPopup({
   hotspotDistanceM,
   maxTempC,
   className,
+  lite = false,
 }: Props) {
   const note = BEAT_NOTES[Math.min(beatIndex, BEAT_NOTES.length - 1)]
 
@@ -343,20 +345,23 @@ export default function RamanFibreDetailPopup({
 
       <div className="fibre-detail-stage">
         <Canvas
+          dpr={lite ? 1 : [1, 1.5]}
           camera={{ position: [0.15, 0.85, 2.35], fov: 36, near: 0.01, far: 40 }}
-          gl={{ antialias: true, alpha: true }}
+          gl={{ antialias: !lite, alpha: true, powerPreference: lite ? 'low-power' : 'default' }}
         >
           <color attach="background" args={['#0a1018']} />
           <ambientLight intensity={0.55} />
           <directionalLight position={[3, 4, 2]} intensity={1.7} color="#fff4e8" />
-          <directionalLight position={[-2, 1, -2]} intensity={0.4} color="#6a9ad4" />
+          {!lite && <directionalLight position={[-2, 1, -2]} intensity={0.4} color="#6a9ad4" />}
           <Suspense fallback={null}>
-            <FibreCadModel pulse={ramanPulse} beatIndex={beatIndex} />
-            <ContactShadows position={[0, -0.45, 0]} opacity={0.35} scale={6} blur={2.5} far={4} />
+            <FibreCadModel pulse={ramanPulse && !lite} beatIndex={beatIndex} />
+            {!lite && (
+              <ContactShadows position={[0, -0.45, 0]} opacity={0.35} scale={6} blur={2.5} far={4} />
+            )}
           </Suspense>
           <OrbitControls
             enablePan={false}
-            enableDamping
+            enableDamping={!lite}
             autoRotate={false}
             minDistance={1.4}
             maxDistance={4.5}
