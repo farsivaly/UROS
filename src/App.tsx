@@ -559,7 +559,7 @@ export default function App() {
           <Canvas
             shadows={!phone}
             dpr={phone ? 1 : [1, 1.5]}
-            camera={{ position: introSpace ? (phone ? [0.35, 1.85, 8.2] : [0.6, 0.35, 7.4]) : [45, 32, 55], fov: phone && introSpace ? 36 : 40, near: 0.1, far: 500 }}
+            camera={{ position: introSpace ? (phone ? [0.35, 1.85, 8.2] : [0.55, 0.5, 11.6]) : [45, 32, 55], fov: phone && introSpace ? 36 : 40, near: 0.1, far: 500 }}
             gl={{
               antialias: !phone,
               powerPreference: phone ? 'low-power' : 'high-performance',
@@ -661,7 +661,7 @@ export default function App() {
               makeDefault
               enableDamping={!phone}
               maxPolarAngle={introSpace ? Math.PI : Math.PI * 0.49}
-              minDistance={introSpace ? 6 : 2}
+              minDistance={introSpace ? (phone ? 6.5 : 9) : 2}
               maxDistance={introSpace ? 40 : 180}
               target={introSpace ? (phone ? [0, 1.35, 0] : [0, 0, 0]) : [0, 1, 0]}
               enabled={!showIntro || introSpace}

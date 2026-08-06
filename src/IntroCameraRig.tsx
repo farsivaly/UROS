@@ -24,7 +24,8 @@ export default function IntroCameraRig({ cue, phoneFrame = false }: Props) {
         camera.position.set(0.35, 1.85, 8.2)
         ctrl?.target.set(0, 1.35, 0)
       } else {
-        camera.position.set(0.6, 0.35, 7.4)
+        // Desktop / laptop: pull back so the full globe reads clearly
+        camera.position.set(0.55, 0.5, 11.6)
         ctrl?.target.set(0, 0, 0)
       }
       camera.near = 0.1

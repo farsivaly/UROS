@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const PHONE_MQ = '(max-width: 820px)'
+const PHONE_MQ = '(max-width: 820px) and (orientation: portrait)'
 
 function readPhone() {
   return typeof window !== 'undefined' && window.matchMedia(PHONE_MQ).matches
