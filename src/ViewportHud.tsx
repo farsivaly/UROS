@@ -72,7 +72,7 @@ export default function ViewportHud({
       >
         <span className="hud-toggle-title">Tools</span>
         <span className="hud-toggle-icon" aria-hidden>
-          {open ? '‹' : '›'}
+          {open ? '▲' : '▼'}
         </span>
       </button>
 

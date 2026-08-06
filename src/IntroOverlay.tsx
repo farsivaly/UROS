@@ -130,68 +130,70 @@ export default function IntroOverlay({
 
   return (
     <div className="intro-overlay">
-      <div className="intro-card">
-        <div className="intro-progress" aria-hidden>
-          <div className="intro-progress-bar" style={{ width: `${progress}%` }} />
-        </div>
-        <p className="intro-kicker">
-          Step {stepIndex + 1} / {INTRO_STEPS.length}
-        </p>
-        <h1 className="intro-headline">{step.headline}</h1>
-        <p className="intro-body">{renderWithRefs(step.body, step.refs)}</p>
+      <div className="intro-sheet">
+        <div className="intro-card">
+          <div className="intro-progress" aria-hidden>
+            <div className="intro-progress-bar" style={{ width: `${progress}%` }} />
+          </div>
+          <p className="intro-kicker">
+            Step {stepIndex + 1} / {INTRO_STEPS.length}
+          </p>
+          <h1 className="intro-headline">{step.headline}</h1>
+          <p className="intro-body">{renderWithRefs(step.body, step.refs)}</p>
 
-        {step.counters && step.counters.length > 0 ? (
-          <IntroCounters counters={step.counters} playKey={stepIndex} />
-        ) : (
-          <p className="intro-stat">{renderWithRefs(step.stat, step.refs)}</p>
-        )}
+          {step.counters && step.counters.length > 0 ? (
+            <IntroCounters counters={step.counters} playKey={stepIndex} />
+          ) : (
+            <p className="intro-stat">{renderWithRefs(step.stat, step.refs)}</p>
+          )}
 
-        <div className="intro-actions">
-          <button
-            type="button"
-            className="tool-btn"
-            disabled={stepIndex === 0}
-            onClick={() => onStepIndex(Math.max(0, stepIndex - 1))}
-          >
-            Back
-          </button>
-          {!isLast ? (
+          <div className="intro-actions">
             <button
               type="button"
-              className="tool-btn primary learn-primary"
-              onClick={() => onStepIndex(Math.min(INTRO_STEPS.length - 1, stepIndex + 1))}
+              className="tool-btn"
+              disabled={stepIndex === 0}
+              onClick={() => onStepIndex(Math.max(0, stepIndex - 1))}
             >
-              Next →
+              Back
             </button>
-          ) : (
-            <>
-              <button type="button" className="tool-btn primary learn-primary" onClick={onStartLearning}>
-                Start Learning
+            {!isLast ? (
+              <button
+                type="button"
+                className="tool-btn primary learn-primary"
+                onClick={() => onStepIndex(Math.min(INTRO_STEPS.length - 1, stepIndex + 1))}
+              >
+                Next →
               </button>
-              <button type="button" className="tool-btn" onClick={onSkipExpert}>
-                Expert Mode
-              </button>
-            </>
-          )}
+            ) : (
+              <>
+                <button type="button" className="tool-btn primary learn-primary" onClick={onStartLearning}>
+                  Start Learning
+                </button>
+                <button type="button" className="tool-btn" onClick={onSkipExpert}>
+                  Expert Mode
+                </button>
+              </>
+            )}
+          </div>
+
+          <button type="button" className="intro-skip" onClick={onSkipExpert}>
+            Skip intro
+          </button>
         </div>
 
-        <button type="button" className="intro-skip" onClick={onSkipExpert}>
-          Skip intro
-        </button>
+        <footer className="intro-credit">
+          <span>
+            Earth model:{' '}
+            <a href={EARTH_CREDIT.url} target="_blank" rel="noopener noreferrer">
+              {EARTH_CREDIT.title}
+            </a>{' '}
+            by {EARTH_CREDIT.author} ·{' '}
+            <a href={EARTH_CREDIT.licenseUrl} target="_blank" rel="noopener noreferrer">
+              {EARTH_CREDIT.license}
+            </a>
+          </span>
+        </footer>
       </div>
-
-      <footer className="intro-credit">
-        <span>
-          Earth model:{' '}
-          <a href={EARTH_CREDIT.url} target="_blank" rel="noopener noreferrer">
-            {EARTH_CREDIT.title}
-          </a>{' '}
-          by {EARTH_CREDIT.author} ·{' '}
-          <a href={EARTH_CREDIT.licenseUrl} target="_blank" rel="noopener noreferrer">
-            {EARTH_CREDIT.license}
-          </a>
-        </span>
-      </footer>
     </div>
   )
 }
