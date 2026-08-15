@@ -82,7 +82,7 @@ export const INTRO_STEPS: IntroStep[] = [
         reference: REF_PLACEHOLDER,
       },
       {
-        label: 'Solar share → 2030',
+        label: 'Renewables + nuclear → 2030',
         value: 50,
         suffix: '%',
         durationMs: 2000,
@@ -97,8 +97,8 @@ export const INTRO_STEPS: IntroStep[] = [
   {
     id: 'solar',
     headline: 'Why Solar?',
-    body: 'Photovoltaic systems are well placed to meet that need. Since 2022, solar output rose by a record 270 TWh (26%), bringing total generation to nearly 1,300 TWh. Solar now accounts for 42% of world electricity generation, and is projected to reach 50% by 2030.',
-    stat: '+270 TWh in 2022 · ~1,300 TWh total · 50% by 2030',
+    body: 'Photovoltaic systems are well placed to meet that need. Since 2022, solar output rose by a record 270 TWh (26%), bringing total generation to nearly 1,300 TWh. By 2030, renewables and nuclear are together set to generate 50% of global electricity, up from 42% today.',
+    stat: '+270 TWh in 2022 · 42% today → 50% by 2030 (renewables + nuclear)',
     scene: 'farm-overview',
     refs: [
       { text: '270 TWh', reference: REF_PLACEHOLDER },
