@@ -1,13 +1,13 @@
 Introduction to the Problem
 The Energy Challenge
 
-Global electricity demand is increasing at an unprecedented rate, driven by artificial intelligence, expanding data centres, digital infrastructure, electric vehicles, and the electrification of industry. At the same time, nations must rapidly decarbonise their energy systems to meet the United Nations Sustainable Development Goals and achieve net-zero emissions by 2050. These challenges require a massive expansion of reliable, efficient, and low-carbon electricity generation.
+Global electricity demand is increasing at an unprecedented rate, driven by artificial intelligence, expanding data centres, digital infrastructure, electric vehicles, and the electrification of industry. At the same time, nations must rapidly decarbonise their energy systems to meet the United Nations Sustainable Development Goals and achieve net-zero emissions by 2050. These challenges require a massive expansion of reliable, efficient, and low-carbon electricity generation. By 2030, renewables and nuclear are together set to generate 50% of global electricity, up from 42% today.
 
 (Show an animated globe with growing electricity demand, AI data centres, EVs, and renewable energy icons.)
 
 The Role of Solar Energy
 
-Solar photovoltaic (PV) energy has become one of the fastest-growing renewable energy technologies. Global solar generation has increased dramatically over the past decade and continues to expand as countries transition away from fossil fuels. As deployment accelerates, maintaining the reliability and availability of PV systems becomes increasingly important.
+Solar photovoltaic (PV) energy has become one of the fastest-growing renewable energy technologies. Global solar generation has increased dramatically over the past decade and continues to expand as countries transition away from fossil fuels. By 2030, renewables and nuclear are together set to generate 50% of global electricity, up from 42% today. As deployment accelerates, maintaining the reliability and availability of PV systems becomes increasingly important.
 
 (Camera flies over the solar farm while panels illuminate.)
 
