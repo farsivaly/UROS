@@ -179,6 +179,9 @@ export default function IntroOverlay({
           <button type="button" className="intro-skip" onClick={onSkipExpert}>
             Skip intro
           </button>
+          <a className="intro-skip" href="#/">
+            Research home
+          </a>
         </div>
 
         <footer className="intro-credit">

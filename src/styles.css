@@ -41,6 +41,17 @@ body,
   overscroll-behavior: none;
 }
 
+html.site-scroll,
+html.site-scroll body,
+html.site-scroll #root {
+  overflow: auto;
+  height: auto;
+  max-height: none;
+  min-height: 100dvh;
+  overscroll-behavior: auto;
+  touch-action: auto;
+}
+
 button,
 input,
 select {
@@ -1851,7 +1862,9 @@ select {
 
 .intro-skip {
   appearance: none;
+  display: inline-block;
   margin-top: 0.75rem;
+  margin-right: 1rem;
   padding: 0;
   border: none;
   background: none;

@@ -19,6 +19,18 @@ assets/
 
 # Build cache
 *.tsbuildinfo
+__pycache__/
+*.pyc
+
+# Third-party experimental downloads (over GitHub's 100 MB file limit)
+ml/data/external/
 
 # Unused huge maps (not referenced by the app)
 public/textures/leafy_grass_*
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Third-party experimental datasets (GitHub 100MB limit; CSUC DUT1.mat is 113MB)
+ml/data/external/

@@ -461,6 +461,9 @@ export default function App() {
           <span>Solar Farm Digital Twin — Phase 4</span>
         </div>
         <div className="view-toggles">
+          <button type="button" onClick={() => { window.location.hash = '#/' }}>
+            Research
+          </button>
           <button
             type="button"
             className="active"
