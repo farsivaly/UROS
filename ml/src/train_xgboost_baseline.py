@@ -538,13 +538,14 @@ def evaluate_test_folder(
 
     files = discover_csv_files(test_dir)
     if not files:
-        print(f"No run_*.csv, thermal_*.csv, or validation_*.csv files in {test_dir}")
+        print(
+            f"No run_*.csv, thermal_*.csv, validation_*.csv, or test_*.csv files in {test_dir}"
+        )
         print("Drop held-out CSVs there, then:")
         print("  python -m src.train_xgboost_baseline --eval-only")
         return None
 
-    if len(files) != 10:
-        print(f"Note: {len(files)} test files (folder was set up for ~10).")
+    print(f"Note: {len(files)} held-out test files.")
     print(f"Test files ({len(files)}):")
     for path in files:
         print(f"  {path.name}")

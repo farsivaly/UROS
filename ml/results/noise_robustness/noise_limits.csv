@@ -1,0 +1,4 @@
+mode,max_sigma_K_at_95pc,noiseless_accuracy,accuracy_at_0.01K,accuracy_at_0.1K,accuracy_at_0.5K
+No averaging,0.0001,1.0,0.3175,0.25,0.25
+1 s + 1 m averaging,0.0001,1.0,0.56875,0.3,0.25
+10 s + 1 m averaging,0.0002,1.0,0.46624999999999994,0.25625,0.25

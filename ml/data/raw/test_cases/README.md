@@ -1,4 +1,4 @@
-# XGBoost test cases (12 unseen)
+# XGBoost test cases (held-out)
 
 Drop held-out Raman DTS CSVs here. They are **not** used for training.
 
@@ -10,6 +10,9 @@ Drop held-out Raman DTS CSVs here. They are **not** used for training.
 | `validation_005`–`006` cond2 Ta27.5 Vdc625 Healthy/Mild | Real Simulink |
 | `validation_007`–`008` cond2 Moderate/Severe | **Simulated** placeholder |
 | `validation_009`–`012` cond3 Ta22.5 Vdc575 | **Simulated** placeholder |
+| `test_01`–`test_08` | Independent Simulink (off-grid Ta/Vdc) |
+
+20 held-out runs in total: 5 per severity class. `independent_test_manifest.csv` gives the designed Ta / Vdc for `test_01`–`test_08`.
 
 Cond3 (22.5 °C / 575 V) is an off-grid stand-in until the real third validation condition is exported. Overwrite any simulated file with the matching Simulink CSV (keep the same name pattern).
 
@@ -21,6 +24,15 @@ python -m src.simulate_unseen_validation --overwrite-simulated
 ```
 
 ## Commands
+
+Extract features and score the saved model (no retraining):
+
+```bash
+cd ml
+python -m src.train_xgboost_baseline --eval-only
+```
+
+Retrain on `master_features.csv` then score this folder:
 
 ```bash
 cd ml

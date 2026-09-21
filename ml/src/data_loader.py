@@ -59,16 +59,18 @@ def detect_layout(raw_dir: Path) -> str:
     """Return 'csv' or 'excel' based on folder contents."""
     if (
         (raw_dir / config.MANIFEST_NAME).is_file()
+        or (raw_dir / "independent_test_manifest.csv").is_file()
         or any(raw_dir.glob("thermal_*.csv"))
         or any(raw_dir.glob("run_*.csv"))
         or any(raw_dir.glob("validation_*.csv"))
+        or any(raw_dir.glob("test_*.csv"))
     ):
         return "csv"
     if (raw_dir / "T_DTS").is_dir():
         return "excel"
     raise FileNotFoundError(
         f"Unrecognised raw layout in {raw_dir}. "
-        "Expected run_*.csv, thermal_*.csv, validation_*.csv "
+        "Expected run_*.csv, thermal_*.csv, validation_*.csv, test_*.csv "
         "(+ optional simulation_manifest.csv), or a T_DTS/ Excel folder."
     )
 
@@ -163,11 +165,24 @@ def load_csv_matrix(path: Path) -> tuple[np.ndarray, np.ndarray, np.ndarray | No
     return time_s, t_dts, t_surface, warnings
 
 
+SKIP_CSV_NAMES = {
+    config.MANIFEST_NAME,
+    "independent_test_manifest.csv",
+    "independent_test_design.csv",
+}
+
+RUN_CSV_PREFIXES = ("thermal_", "run_", "validation_", "test_")
+
+
 def load_manifest(raw_dir: Path) -> pd.DataFrame | None:
-    path = raw_dir / config.MANIFEST_NAME
-    if not path.is_file():
+    frames: list[pd.DataFrame] = []
+    for name in (config.MANIFEST_NAME, "independent_test_manifest.csv"):
+        path = raw_dir / name
+        if path.is_file():
+            frames.append(pd.read_csv(path))
+    if not frames:
         return None
-    return pd.read_csv(path)
+    return pd.concat(frames, ignore_index=True)
 
 
 def discover_csv_files(raw_dir: Path) -> list[Path]:
@@ -175,12 +190,8 @@ def discover_csv_files(raw_dir: Path) -> list[Path]:
         p
         for p in raw_dir.glob("*.csv")
         if not p.name.startswith("~$")
-        and p.name != config.MANIFEST_NAME
-        and (
-            p.name.startswith("thermal_")
-            or p.name.startswith("run_")
-            or p.name.startswith("validation_")
-        )
+        and p.name not in SKIP_CSV_NAMES
+        and p.name.startswith(RUN_CSV_PREFIXES)
     ]
     return sorted(files)
 
@@ -246,7 +257,9 @@ def load_csv_run(path: Path, manifest_row: pd.Series | None = None) -> RunRecord
 def load_all_csv_runs(raw_dir: Path) -> list[RunRecord]:
     files = discover_csv_files(raw_dir)
     if not files:
-        raise FileNotFoundError(f"No run_*.csv or thermal_*.csv files in {raw_dir}")
+        raise FileNotFoundError(
+            f"No run_*.csv, thermal_*.csv, validation_*.csv, or test_*.csv files in {raw_dir}"
+        )
     manifest = load_manifest(raw_dir)
     by_name: dict[str, pd.Series] = {}
     if manifest is not None and "source_file" in manifest.columns:

@@ -1,0 +1,9 @@
+run_id,severity,alpha_deg,ambient_temperature_C,Vdc_V,Pload_W
+1,Moderate,1.5,24.6,559.2,2000
+2,Moderate,1.5,34.8,678.8,2000
+3,Severe,2,19,509.6,2000
+4,Healthy,1,23.3,656.6,2000
+5,Healthy,1,19.4,611.7,2000
+6,Severe,2,33.2,589,2000
+7,Mild,1.25,34.5,560.5,2000
+8,Mild,1.25,16.8,579.5,2000

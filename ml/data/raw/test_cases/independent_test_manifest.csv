@@ -1,0 +1,9 @@
+run_id,source_file,severity,alpha_deg,ambient_temperature_C,ambient_temperature_K,Vdc_V,Pload_W,modulation_index,degradation_type,simulation_duration_s,status,error_message,timestamp
+1,test_01_Moderate_Ta24.6_Vdc559.2_P2000.csv,Moderate,1.5,24.6,297.75,559.2,2000,0.8,internal_thermal,60,success,,20-Sep-2026 22:31:29
+2,test_02_Moderate_Ta34.8_Vdc678.8_P2000.csv,Moderate,1.5,34.8,307.95,678.8,2000,0.8,internal_thermal,60,success,,20-Sep-2026 22:59:49
+3,test_03_Severe_Ta19.0_Vdc509.6_P2000.csv,Severe,2,19,292.15,509.6,2000,0.8,internal_thermal,60,success,,20-Sep-2026 23:27:22
+4,test_04_Healthy_Ta23.3_Vdc656.6_P2000.csv,Healthy,1,23.3,296.45,656.6,2000,0.8,internal_thermal,60,success,,20-Sep-2026 23:55:05
+5,test_05_Healthy_Ta19.4_Vdc611.7_P2000.csv,Healthy,1,19.4,292.55,611.7,2000,0.8,internal_thermal,60,success,,21-Sep-2026 00:22:26
+6,test_06_Severe_Ta33.2_Vdc589.0_P2000.csv,Severe,2,33.2,306.35,589,2000,0.8,internal_thermal,60,success,,21-Sep-2026 00:49:05
+7,test_07_Mild_Ta34.5_Vdc560.5_P2000.csv,Mild,1.25,34.5,307.65,560.5,2000,0.8,internal_thermal,60,success,,21-Sep-2026 01:15:31
+8,test_08_Mild_Ta16.8_Vdc579.5_P2000.csv,Mild,1.25,16.8,289.95,579.5,2000,0.8,internal_thermal,60,success,,21-Sep-2026 01:42:08
