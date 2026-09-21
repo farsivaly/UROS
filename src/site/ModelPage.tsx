@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
+  CLASSIFIER_RESULTS,
   INVERTER_PIPELINE,
   MODEL_FILES,
   MODEL_VIEWS,
@@ -150,8 +151,9 @@ export default function ModelPage() {
               <h2>Operating envelope</h2>
               <p>
                 Ambient temperature 15–35 °C, DC-link 500–700 V, load 2 kW,
-                modulation index 0.8, 60 s runs. Raman attenuation is enabled;
-                measurement noise is off for the baseline dataset.
+                modulation index 0.8, 60 s runs. Raman attenuation is enabled.
+                The dataset itself is noiseless; noise is added afterwards to
+                measure how much the classifier tolerates.
               </p>
             </div>
             <div className="model-block">
@@ -165,6 +167,32 @@ export default function ModelPage() {
                   </div>
                 ))}
               </dl>
+            </div>
+            <div className="model-block wide">
+              <h2>Classifier results</h2>
+              <p>
+                XGBoost reads two load-normalised features, ΔT_surface and
+                max|dT/dx| divided by peak surface heating rate, so severity is
+                separated without using ambient temperature or DC-link voltage
+                as inputs.
+              </p>
+              <dl className="severity">
+                {CLASSIFIER_RESULTS.map((row) => (
+                  <div key={row.label}>
+                    <dt>{row.label}</dt>
+                    <dd>{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p>
+                The held-out score covers the 14 independent Simulink exports at
+                off-grid ambient and DC-link points. A further six
+                condition/severity pairs in the test folder were synthesised from
+                training runs, and because both features are ratios the
+                synthesis cancels exactly, leaving them identical to their source
+                runs; they are excluded from the score. The noise limit is the
+                largest per-sample noise that still holds accuracy above 95%.
+              </p>
             </div>
             <div className="model-block wide">
               <h2>Diagnostic figures</h2>
@@ -189,9 +217,31 @@ export default function ModelPage() {
                     src="/research/figures/08_xgb_test_cases_confusion.png"
                     alt="Severity classifier confusion matrix on held-out cases"
                   />
-                  <figcaption>Severity classifier on held-out cases</figcaption>
+                  <figcaption>All 20 held-out files classified correctly</figcaption>
                 </figure>
               </div>
+            </div>
+            <div className="model-block wide">
+              <h2>Sensitivity to measurement noise</h2>
+              <p>
+                Perfect accuracy holds only while the temperature signal is
+                near-noiseless. Both features divide by a derivative, and a
+                maximum taken over a differentiated signal follows the largest
+                noise spike rather than the physical heating rate, so accuracy
+                reaches chance well below the 0.1–1 K a Raman DTS instrument
+                resolves. Time and space averaging helps but does not close the
+                gap, which is why more robust heating-rate estimation comes
+                before any experimental deployment.
+              </p>
+              <figure className="model-diagram">
+                <img
+                  src="/research/figures/11_accuracy_vs_noise.png"
+                  alt="Classifier accuracy versus added temperature noise for three averaging settings"
+                />
+                <figcaption>
+                  Accuracy versus added noise, 40 noise realisations per level
+                </figcaption>
+              </figure>
             </div>
           </div>
 

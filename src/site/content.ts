@@ -382,3 +382,14 @@ export const SEVERITY = [
   { label: 'Moderate', alpha: '1.50' },
   { label: 'Severe', alpha: '2.00' },
 ]
+
+// Held-out score is quoted over the independent Simulink exports only. Six
+// condition/severity pairs were synthesised from training runs, and the load
+// normalisation makes those algebraically identical to their source, so they
+// carry no test information.
+export const CLASSIFIER_RESULTS = [
+  { label: 'Training runs', value: '95' },
+  { label: 'Independent tests', value: '14' },
+  { label: 'Test accuracy', value: '14 / 14' },
+  { label: 'Noise limit', value: '0.2 mK' },
+]
